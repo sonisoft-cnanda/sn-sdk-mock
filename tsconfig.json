@@ -1,0 +1,51 @@
+{
+    "compilerOptions": {
+      "strict": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "target": "ES2021",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "skipLibCheck": true,
+    "allowJs": true,
+    "checkJs": false,
+    "allowSyntheticDefaultImports": true,
+    "allowUmdGlobalAccess": true,
+    "allowArbitraryExtensions": true,
+    "skipDefaultLibCheck": true,
+    "outDir": "dist/src",
+    "rootDir": "src",
+    "declaration": true, // Generate declaration files
+    "declarationMap": true, // Generate declaration maps
+    "sourceMap": true, // Generate source maps
+    "composite": true, // Enable project references
+    "types": [
+      "node",
+      "jest",
+      "@servicenow/glide"
+    ],
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths"
+      },
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true
+      }
+    ]
+  },
+  "tsc-alias": {
+    "resolveFullPaths": true,
+    "verbose": false
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "NodeNext"
+    },
+    "esm": false
+  },
+   "include": ["src/**/*.ts","types/*.ts"],
+    "exclude": [
+      "src/fluent/**"
+    ]
+  }

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mockGs = exports.MockGlideTime = exports.MockGlideDateTime = exports.GlideDateTime = exports.GlideTime = exports.GlideDate = exports.gs = exports.MockGlideElement = exports.GlideRecord = exports.MockGlideRecord = exports.MockGlideQueryCondition = exports.MockGlideSystem = exports.MockPropertyDB = exports.MockPropertyTable = exports.Database = exports.InMemoryDataTable = exports.MOCKED_PROPERTIES = void 0;
 exports.newMockGlideDateTime = newMockGlideDateTime;
+exports.newMockGlideSystem = newMockGlideSystem;
 const parseISO_1 = require("date-fns/parseISO");
 const DBUtil_1 = require("../../../common/DBUtil.js");
 const console_1 = require("console");
@@ -619,5 +620,8 @@ class MockGlideTime {
     }
 }
 exports.MockGlideTime = MockGlideTime;
+function newMockGlideSystem() {
+    return new MockGlideSystem();
+}
 exports.mockGs = new MockGlideSystem();
 //# sourceMappingURL=glide.js.map

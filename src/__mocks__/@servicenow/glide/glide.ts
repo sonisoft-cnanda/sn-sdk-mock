@@ -756,6 +756,9 @@ export class MockGlideTime{
     })
 }
 
-   
+export function newMockGlideSystem() : MockGlideSystem{
+    return new MockGlideSystem();
+}
+
 
 export const mockGs = new MockGlideSystem();

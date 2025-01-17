@@ -211,5 +211,6 @@ export declare class MockGlideTime {
     constructor(dt: Date);
     getByFormat: jest.Mock<string | number, [val: string], any>;
 }
+export declare function newMockGlideSystem(): MockGlideSystem;
 export declare const mockGs: MockGlideSystem;
 //# sourceMappingURL=glide.d.ts.map

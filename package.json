@@ -1,9 +1,9 @@
 {
   "name": "int-sn-mock",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "files": [
-    "src/__mocks__"
+    "dist"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,7 +12,7 @@
     "build-index-export": "npx ctix build --config ./.ctirc"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": "",
   "types": "./dist/src/index.d.ts",
   "exports": {

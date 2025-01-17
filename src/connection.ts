@@ -1,13 +1,15 @@
+import { GlideRecord } from '@servicenow/glide';
+import { RESTMessageV2 } from '@servicenow/glide/sn_ws';
+import { ConnectionBase, ConnectionModel, ConnectionType, GlideRecordOperation, IConnection, IConnectionModel } from '@servicenow/glide/x_taniu_tan_core';
 
-
-export class MockConnectionModel extends ConnectionModel{
+export class MockConnectionModel extends ConnectionModel implements IConnectionModel{
     public constructor(){
         super();
         this.record = new GlideRecord("x_taniu_tan_core_connection");
         this.record.setValue("type", ConnectionType.SECOPS_PARAMETER_CONNECTION);
     }
-
-
+  
+ 
 
 }
 

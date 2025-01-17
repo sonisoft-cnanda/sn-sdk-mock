@@ -15,9 +15,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@servicenow/eslint-plugin-sdk-app-plugin": "2.0.1",
-    "@servicenow/glide": "github:tanium-cnanda/servicenow-glide",
-    "@servicenow/sdk-build": "^2.0.1",
+    
     "@types/jest": "^29.5.14",
     "ctix": "^2.6.4",
     "eslint": "^8.50.0",
@@ -39,6 +37,9 @@
   },
 
     "dependencies": {
+      "@servicenow/eslint-plugin-sdk-app-plugin": "2.0.1",
+    "@servicenow/glide": "github:tanium-cnanda/servicenow-glide",
+    "@servicenow/sdk-build": "^2.0.1",
         "date-fns": "^4.1.0",
         "date-fns-tz": "^3.2.0"
     }

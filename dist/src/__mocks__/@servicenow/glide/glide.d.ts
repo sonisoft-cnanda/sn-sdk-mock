@@ -36,6 +36,46 @@ export declare class Database {
     addTable(tableName: string): InMemoryDataTable;
     getTable(tableName: string): InMemoryDataTable;
 }
+export declare class MockPropertyTable {
+    private _properties;
+    constructor();
+    getProperty: jest.Mock<any, any, any>;
+    setProperty: jest.Mock<any, any, any>;
+}
+export declare class MockPropertyDB {
+    private static _instance;
+    static getInstance(): MockPropertyDB;
+    private _propertiesTable;
+    constructor();
+    getProperty: jest.Mock<any, any, any>;
+    setProperty: jest.Mock<any, any, any>;
+}
+export declare class MockGlideSystem {
+    private _data;
+    get data(): InMemoryDataTable;
+    constructor();
+    getProperty: jest.Mock<any, any, any>;
+    setProperty: jest.Mock<any, any, any>;
+    log: jest.Mock<any, any, any>;
+    importXML: jest.Mock<any, any, any>;
+    getUserName: jest.Mock<any, any, any>;
+    getSystemId: jest.Mock<any, any, any>;
+    nil: jest.Mock<boolean, [value: unknown], any>;
+    error: jest.Mock<any, any, any>;
+    warn: jest.Mock<any, any, any>;
+    debug: jest.Mock<any, any, any>;
+    info: jest.Mock<any, any, any>;
+}
+export declare class MockGlideQueryCondition {
+    private conditions;
+    addCondition(name?: string, oper?: string, value?: any): MockGlideQueryCondition;
+    addOrCondition(name?: string, oper?: string, value?: any): MockGlideQueryCondition;
+    getConditions(): {
+        name?: string;
+        oper?: string;
+        value?: any;
+    }[];
+}
 export declare class MockGlideRecord {
     _database: Database;
     private _tableName;
@@ -57,12 +97,17 @@ export declare class MockGlideRecord {
     set newRecord(value: boolean);
     private _sys_id;
     get sys_id(): string;
+    private _conditions;
+    get conditions(): MockGlideQueryCondition[];
+    set conditions(value: MockGlideQueryCondition[]);
     generateGUID(): string;
     constructor(tableName: string);
     initialize: jest.Mock<any, any, any>;
+    initQueryGr(): void;
     next: jest.Mock<any, any, any>;
     get: jest.Mock<any, any, any>;
     isNewRecord: jest.Mock<any, any, any>;
+    addEncodedQuery: jest.Mock<any, any, any>;
     addActiveQuery: jest.Mock<any, any, any>;
     addQuery: jest.Mock<any, any, any>;
     query: jest.Mock<any, any, any>;
@@ -166,4 +211,5 @@ export declare class MockGlideTime {
     constructor(dt: Date);
     getByFormat: jest.Mock<string | number, [val: string], any>;
 }
+export declare const mockGs: MockGlideSystem;
 //# sourceMappingURL=glide.d.ts.map

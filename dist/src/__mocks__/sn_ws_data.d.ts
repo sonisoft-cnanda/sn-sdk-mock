@@ -37,6 +37,8 @@ export declare class MockRESTMessageV2 {
     executeAsync: jest.Mock<any, any, any>;
     setHttpTimeout: jest.Mock<any, any, any>;
     setEccParameter: jest.Mock<any, any, any>;
+    setHttpMethod: jest.Mock<any, any, any>;
+    setEndpoint: jest.Mock<any, any, any>;
     setRequestBody: jest.Mock<any, any, any>;
     getMockProperties(): Record<string, string>;
     getMockEccParams(): Record<string, string>;

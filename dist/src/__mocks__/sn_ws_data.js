@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RESTDataStore = exports.RESTMessageFunctionTemplate = exports.RESTMessageTemplate = exports.MockRESTMessageV2 = exports.MockRESTResponseV2 = void 0;
-const glide_1 = require("@servicenow/glide");
+const console_1 = require("console");
 class MockRESTResponseV2 {
     constructor(request) {
         this._headers = {};
@@ -90,7 +90,7 @@ class MockRESTMessageV2 {
                 this._headers.forEach((header) => {
                     header.value = header.value.replace('${' + param.name + '}', param.value);
                 });
-                if (!glide_1.gs.nil(this._endpoint))
+                if (this._endpoint)
                     this._endpoint = this._endpoint.replace('${' + param.name + '}', param.value);
             });
             this._restMessageBody = body;
@@ -106,6 +106,12 @@ class MockRESTMessageV2 {
         this.setEccParameter = jest.fn().mockImplementation((param, value) => {
             this.mockEccParams[param] = value;
         });
+        this.setHttpMethod = jest.fn().mockImplementation((method) => {
+            this.mockProperties["http_method"] = method;
+        });
+        this.setEndpoint = jest.fn().mockImplementation((endpoint) => {
+            this._endpoint = endpoint;
+        });
         this.setRequestBody = jest.fn().mockImplementation((body) => {
             this._restMessageBody = body;
         });
@@ -120,20 +126,20 @@ class MockRESTMessageV2 {
             this.methodName = methodName;
         if (name && methodName) {
             let restMessage = RESTDataStore.getInstance().getRESTMessageTemplate(name);
-            if (!glide_1.gs.nil(restMessage)) {
-                glide_1.gs.debug(JSON.stringify("RESTMessage object found in data store." + restMessage));
+            if (restMessage) {
+                (0, console_1.debug)(JSON.stringify("RESTMessage object found in data store." + restMessage));
                 let restMessageFn = restMessage.methods[methodName];
-                if (!glide_1.gs.nil(restMessageFn)) {
-                    glide_1.gs.debug("MOCKRESTMessageV2: " + JSON.stringify(restMessageFn));
+                if (restMessageFn) {
+                    (0, console_1.debug)("MOCKRESTMessageV2: " + JSON.stringify(restMessageFn));
                     this._bodyTemplate = restMessageFn.templateBody;
                     this._endpoint = restMessageFn.getDefaultEndpoint();
                 }
                 else {
-                    glide_1.gs.error("RESTMessageFunctionTemplate not found for " + name + "." + methodName);
+                    (0, console_1.error)("RESTMessageFunctionTemplate not found for " + name + "." + methodName);
                 }
             }
             else {
-                glide_1.gs.error("RESTMessageTemplate not found for " + name);
+                (0, console_1.error)("RESTMessageTemplate not found for " + name);
             }
         }
     }

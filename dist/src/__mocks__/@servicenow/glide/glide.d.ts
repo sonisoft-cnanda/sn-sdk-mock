@@ -139,10 +139,6 @@ export declare class MockGlideRecord {
 }
 export declare class GlideRecord extends MockGlideRecord {
 }
-export declare class DBRecord extends MockGlideRecord {
-}
-export declare class DBRecordSecure extends MockGlideRecord {
-}
 export declare class MockGlideElement {
     private _value;
     private _refRecordTableName;

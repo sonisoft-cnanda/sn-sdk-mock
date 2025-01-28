@@ -510,10 +510,6 @@ export class MockGlideRecord {
 
 export class GlideRecord extends MockGlideRecord{}
 
-export class DBRecord extends MockGlideRecord {}
-
-export class DBRecordSecure extends MockGlideRecord {}
-
 export class MockGlideElement {
     private _value: any;
     private _refRecordTableName:string = "";

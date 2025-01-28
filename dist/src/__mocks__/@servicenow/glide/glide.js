@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mockGs = exports.MockGlideTime = exports.MockGlideDateTime = exports.GlideDateTime = exports.GlideTime = exports.GlideDate = exports.gs = exports.MockGlideElement = exports.GlideRecord = exports.MockGlideRecord = exports.MockGlideQueryCondition = exports.MockGlideSystem = exports.MockPropertyDB = exports.MockPropertyTable = exports.Database = exports.InMemoryDataTable = exports.MOCKED_PROPERTIES = void 0;
+exports.mockGs = exports.MockGlideTime = exports.MockGlideDateTime = exports.GlideDateTime = exports.GlideTime = exports.GlideDate = exports.gs = exports.MockGlideElement = exports.DBRecordSecure = exports.DBRecord = exports.GlideRecord = exports.MockGlideRecord = exports.MockGlideQueryCondition = exports.MockGlideSystem = exports.MockEventQueue = exports.MockPropertyDB = exports.MockPropertyTable = exports.Database = exports.InMemoryDataTable = exports.MOCKED_PROPERTIES = void 0;
 exports.newMockGlideDateTime = newMockGlideDateTime;
 exports.newMockGlideSystem = newMockGlideSystem;
 const parseISO_1 = require("date-fns/parseISO");
@@ -118,6 +118,17 @@ class MockPropertyDB {
     }
 }
 exports.MockPropertyDB = MockPropertyDB;
+class MockEventQueue {
+    static getInstance() {
+        if (!MockEventQueue._instance) {
+            MockEventQueue._instance = new MockEventQueue();
+        }
+        return MockEventQueue._instance;
+    }
+    eventQueue(eventName, instance, parm1, parm2, queue) {
+    }
+}
+exports.MockEventQueue = MockEventQueue;
 class MockGlideSystem {
     get data() {
         return this._data;
@@ -155,6 +166,8 @@ class MockGlideSystem {
         });
         this.info = jest.fn().mockImplementation((msg) => {
             (0, console_1.log)(msg);
+        });
+        this.eventQueue = jest.fn().mockImplementation((eventName, instance, parm1, parm2, queue) => {
         });
         this._data = Database.getInstance().addTable('sys_properties');
     }
@@ -395,6 +408,12 @@ exports.MockGlideRecord = MockGlideRecord;
 class GlideRecord extends MockGlideRecord {
 }
 exports.GlideRecord = GlideRecord;
+class DBRecord extends MockGlideRecord {
+}
+exports.DBRecord = DBRecord;
+class DBRecordSecure extends MockGlideRecord {
+}
+exports.DBRecordSecure = DBRecordSecure;
 class MockGlideElement {
     constructor(value) {
         this._refRecordTableName = "";

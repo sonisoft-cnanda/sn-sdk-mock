@@ -50,6 +50,12 @@ export declare class MockPropertyDB {
     getProperty: jest.Mock<any, any, any>;
     setProperty: jest.Mock<any, any, any>;
 }
+export declare class MockEventQueue {
+    private static _instance;
+    static getInstance(): MockEventQueue;
+    private _queue;
+    eventQueue(eventName: string, instance: GlideRecord, parm1: string, parm2: string, queue: string): void;
+}
 export declare class MockGlideSystem {
     private _data;
     get data(): InMemoryDataTable;
@@ -65,6 +71,7 @@ export declare class MockGlideSystem {
     warn: jest.Mock<any, any, any>;
     debug: jest.Mock<any, any, any>;
     info: jest.Mock<any, any, any>;
+    eventQueue: jest.Mock<any, any, any>;
 }
 export declare class MockGlideQueryCondition {
     private conditions;
@@ -131,6 +138,10 @@ export declare class MockGlideRecord {
     getMockData: jest.Mock<any, any, any>;
 }
 export declare class GlideRecord extends MockGlideRecord {
+}
+export declare class DBRecord extends MockGlideRecord {
+}
+export declare class DBRecordSecure extends MockGlideRecord {
 }
 export declare class MockGlideElement {
     private _value;

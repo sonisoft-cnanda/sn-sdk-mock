@@ -145,6 +145,25 @@ export class MockPropertyDB{
     });
 }
 
+export class MockEventQueue{
+    private static _instance:MockEventQueue;
+
+    public static getInstance():MockEventQueue{
+        if(!MockEventQueue._instance){
+            MockEventQueue._instance = new MockEventQueue();
+        }
+        return MockEventQueue._instance;
+    }
+
+    private _queue:[];
+
+    
+    public eventQueue(eventName:string, instance:GlideRecord, parm1:string, parm2:string, queue:string) : void{
+
+    }
+
+}
+
 export class MockGlideSystem {
     private _data:InMemoryDataTable;
     public get data(): InMemoryDataTable {
@@ -199,6 +218,9 @@ export class MockGlideSystem {
         log(msg);
     });
   
+    eventQueue= jest.fn().mockImplementation((eventName:string, instance:GlideRecord, parm1:string, parm2:string, queue:string | object ) => {
+
+    });
 
 }
 
@@ -487,6 +509,10 @@ export class MockGlideRecord {
 }
 
 export class GlideRecord extends MockGlideRecord{}
+
+export class DBRecord extends MockGlideRecord {}
+
+export class DBRecordSecure extends MockGlideRecord {}
 
 export class MockGlideElement {
     private _value: any;

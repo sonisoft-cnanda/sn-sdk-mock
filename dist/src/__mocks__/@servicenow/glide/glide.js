@@ -241,6 +241,12 @@ class MockGlideRecord {
         });
         return guid;
     }
+    get mockNew() {
+        return this._mockNew;
+    }
+    set mockNew(value) {
+        this._mockNew = value;
+    }
     constructor(tableName) {
         this._database = Database.getInstance();
         //private _currentRecord: number;
@@ -248,10 +254,12 @@ class MockGlideRecord {
         this._isNewRecord = false;
         this._sys_id = this.generateGUID();
         this._conditions = [];
+        this._mockNew = {};
         this.initialize = jest.fn().mockImplementation(() => {
             this._isNewRecord = true;
-            // this._mockRecords.push({});
-            // this._mockIndex++;
+            this._mockCurrent = this._mockNew;
+            this._mockNew.sys_id = this.generateGUID();
+            this._sys_id = this._mockNew.sys_id;
         });
         this.next = jest.fn().mockImplementation(() => {
             this._mockIndex++;
@@ -259,6 +267,7 @@ class MockGlideRecord {
                 return false;
             }
             this._mockCurrent = this.data[this.mockIndex];
+            this._sys_id = this._mockCurrent.sys_id;
             return true;
         });
         this.get = jest.fn().mockImplementation((sysId) => {
@@ -275,6 +284,7 @@ class MockGlideRecord {
             this._mockCurrent = this.data.find((record) => record.sys_id === sysId);
             if (this._mockCurrent) {
                 this.mockIndex = this.data.indexOf(this._mockCurrent);
+                this._sys_id = this._mockCurrent.sys_id;
             }
             return this._mockCurrent;
         });
@@ -314,12 +324,16 @@ class MockGlideRecord {
             return this;
         });
         this.insert = jest.fn().mockImplementation(() => {
-            // const record = this._mockCurrent;
-            // if (record) {
-            //     record._mockInserted = true;
-            // }
-            // this._data.push({ ...this._properties });
-            return 'mockInsertedSysID';
+            if (this._mockNew) {
+                let dbTable = this._database.getTable(this._tableName);
+                if (dbTable) {
+                    let id = this._mockNew.sys_id;
+                    dbTable.addRow(this._mockNew);
+                    this._mockNew = null;
+                    this.get(id);
+                }
+            }
+            return this.sys_id || null;
         });
         this.update = jest.fn().mockImplementation(() => {
             const record = this._mockCurrent;

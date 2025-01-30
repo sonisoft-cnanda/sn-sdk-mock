@@ -1,4 +1,4 @@
-export * from './connection.js';
-export * from './__mocks__/index.js';
-export * from './common/index.js';
+export * from './connection';
+export * from './__mocks__';
+export * from './common';
 //# sourceMappingURL=index.d.ts.map

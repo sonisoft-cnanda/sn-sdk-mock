@@ -1,3 +1,3 @@
-export * from './glide.js';
-export * from './x_taniu_tan_core/index.js';
+export * from './glide';
+export * from './x_taniu_tan_core';
 //# sourceMappingURL=index.d.ts.map

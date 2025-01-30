@@ -4,7 +4,7 @@ exports.MockAbstractAjaxProcessor = exports.mockGs = exports.MockGlideTime = exp
 exports.newMockGlideDateTime = newMockGlideDateTime;
 exports.newMockGlideSystem = newMockGlideSystem;
 const parseISO_1 = require("date-fns/parseISO");
-const DBUtil_1 = require("../../../common/DBUtil.js");
+const DBUtil_1 = require("../../../common/DBUtil");
 const console_1 = require("console");
 exports.MOCKED_PROPERTIES = {
     'x_taniu_tan_core.tanium_api_endpoint': 'https://my.tanium.instance/api/v2/',
@@ -209,6 +209,12 @@ class MockGlideRecord {
     set mockIndex(value) {
         this._mockIndex = value;
     }
+    get mockLimit() {
+        return this._mockLimit;
+    }
+    set mockLimit(value) {
+        this._mockLimit = value;
+    }
     get data() {
         if (this._data === undefined || this._data === null) {
             this._data = [];
@@ -249,6 +255,7 @@ class MockGlideRecord {
     }
     constructor(tableName) {
         this._database = Database.getInstance();
+        this._mockLimit = 0;
         //private _currentRecord: number;
         //private _properties: Record<string, any>;
         this._isNewRecord = false;
@@ -342,6 +349,10 @@ class MockGlideRecord {
             }
             return record.sys_id || 'mockSysId';
         });
+        this.setLimit = jest.fn().mockImplementation((limit) => {
+            this.mockLimit = limit;
+            return null;
+        });
         this.setValue = jest.fn().mockImplementation((column, value) => {
             this._mockCurrent[column] = value;
             this[column] = value; // hacky glideelement replacement for now
@@ -415,6 +426,9 @@ class MockGlideRecord {
         let dbTable = this._database.getTable(this._tableName);
         if (dbTable) {
             this.data = dbTable.getRows();
+            if (this.mockLimit) {
+                this.data = this.data.slice(0, this.mockLimit);
+            }
         }
     }
 }

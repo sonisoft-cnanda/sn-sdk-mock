@@ -273,6 +273,14 @@ export class MockGlideRecord {
     public set mockIndex(value: number) {
         this._mockIndex = value;
     }
+    private _mockLimit: number = 0;
+    public get mockLimit(): number {
+        return this._mockLimit;
+    }
+    public set mockLimit(value: number) {
+        this._mockLimit = value;
+    }
+
     private _data: any[];
     public get data(): any[] {
         if(this._data === undefined || this._data === null ){
@@ -355,6 +363,9 @@ export class MockGlideRecord {
         let dbTable:InMemoryDataTable = this._database.getTable(this._tableName);
         if(dbTable){
             this.data = dbTable.getRows();
+            if(this.mockLimit){
+                this.data = this.data.slice(0,this.mockLimit);
+            }
         }
     }
 
@@ -452,6 +463,11 @@ export class MockGlideRecord {
             record._mockUpdated = true;
         }
         return record.sys_id || 'mockSysId';
+    });
+
+    public setLimit = jest.fn().mockImplementation((limit: number) => {
+        this.mockLimit = limit;
+        return null;
     });
 
     setValue = jest.fn().mockImplementation((column: string, value: string) => {

@@ -351,11 +351,10 @@ class MockGlideRecord {
         });
         this.setLimit = jest.fn().mockImplementation((limit) => {
             this.mockLimit = limit;
-            return null;
         });
         this.setValue = jest.fn().mockImplementation((column, value) => {
             this._mockCurrent[column] = value;
-            this[column] = value; // hacky glideelement replacement for now
+            this[column] = new MockGlideElement(value); // hacky glideelement replacement for now
             //this._properties[column] = value;
         });
         this.getValue = jest.fn().mockImplementation((column) => {
@@ -363,7 +362,8 @@ class MockGlideRecord {
         });
         this.getElement = jest.fn().mockImplementation((column) => {
             if (this._mockCurrent[column]) {
-                return this._mockCurrent[column];
+                return new MockGlideElement(this._mockCurrent[column]);
+                //return this._mockCurrent[column];
             } //else{
             //     this._mockCurrent[column] = new MockGlideElement(null);
             // }
@@ -450,8 +450,14 @@ class MockGlideElement {
             return this._value.toString();
         });
         this.getRefRecord = jest.fn().mockImplementation(() => {
-            if (!this._refRecord) {
+            if (!this._refRecord && this._refRecordTableName) {
                 this._refRecord = new GlideRecord(this._refRecordTableName);
+            }
+            else if (!this._refRecord) {
+                this._refRecord = {
+                    sys_id: this._value,
+                    getUniqueValue: () => this._value
+                };
             }
             return this._refRecord;
         });

@@ -285,7 +285,7 @@ export class MockGlideRecord {
     public get data(): any[] {
         if(this._data === undefined || this._data === null ){
             this._data = [];
-        }  
+        }
         return this._data;
     }
     public set data(value: any[]) {
@@ -467,12 +467,11 @@ export class MockGlideRecord {
 
     public setLimit = jest.fn().mockImplementation((limit: number) => {
         this.mockLimit = limit;
-        return null;
     });
 
     setValue = jest.fn().mockImplementation((column: string, value: string) => {
         this._mockCurrent[column] = value;
-        this[column] = value; // hacky glideelement replacement for now
+        this[column] = new MockGlideElement(value); // hacky glideelement replacement for now
         //this._properties[column] = value;
     });
 
@@ -482,7 +481,8 @@ export class MockGlideRecord {
 
     getElement = jest.fn().mockImplementation((column: string) => {
         if(this._mockCurrent[column]){
-            return this._mockCurrent[column];
+            return new MockGlideElement(this._mockCurrent[column])
+            //return this._mockCurrent[column];
         } //else{
         //     this._mockCurrent[column] = new MockGlideElement(null);
         // }
@@ -567,10 +567,15 @@ export class MockGlideElement {
     });
 
     getRefRecord = jest.fn().mockImplementation(() => {
-        if(!this._refRecord){
+        if(!this._refRecord && this._refRecordTableName){
             this._refRecord = new GlideRecord(this._refRecordTableName);
+        } else if(!this._refRecord){
+            this._refRecord = {
+                sys_id: this._value,
+                getUniqueValue: ()=>this._value
+            } as MockGlideRecord
         }
-        return  this._refRecord; 
+        return this._refRecord; 
     });
 
     setRefRecord = jest.fn().mockImplementation((record:GlideRecord) => {

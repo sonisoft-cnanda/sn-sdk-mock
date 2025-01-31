@@ -281,6 +281,8 @@ export class MockGlideRecord {
         this._mockLimit = value;
     }
 
+    private _operation:string;
+
     private _data: any[];
     public get data(): any[] {
         if(this._data === undefined || this._data === null ){
@@ -368,6 +370,9 @@ export class MockGlideRecord {
             }
         }
     }
+    public operation(){
+        return this._operation;
+    }
 
     public next = jest.fn().mockImplementation(() => {
         this._mockIndex++;
@@ -453,7 +458,7 @@ export class MockGlideRecord {
                 this.get(id);
             }
         }
-
+        this._operation = "insert"
         return this.sys_id || null;
     });
 
@@ -462,6 +467,7 @@ export class MockGlideRecord {
         if (record) {
             record._mockUpdated = true;
         }
+        this._operation = "update"
         return record.sys_id || 'mockSysId';
     });
 

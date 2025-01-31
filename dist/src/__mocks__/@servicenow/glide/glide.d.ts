@@ -100,6 +100,7 @@ export declare class MockGlideRecord {
     private _mockLimit;
     get mockLimit(): number;
     set mockLimit(value: number);
+    private _operation;
     private _data;
     get data(): any[];
     set data(value: any[]);
@@ -117,6 +118,7 @@ export declare class MockGlideRecord {
     constructor(tableName: string);
     initialize: any;
     initQueryGr(): void;
+    operation(): string;
     next: any;
     get: any;
     isNewRecord: any;

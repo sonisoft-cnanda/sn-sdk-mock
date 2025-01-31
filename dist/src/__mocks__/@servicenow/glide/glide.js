@@ -340,6 +340,7 @@ class MockGlideRecord {
                     this.get(id);
                 }
             }
+            this._operation = "insert";
             return this.sys_id || null;
         });
         this.update = jest.fn().mockImplementation(() => {
@@ -347,6 +348,7 @@ class MockGlideRecord {
             if (record) {
                 record._mockUpdated = true;
             }
+            this._operation = "update";
             return record.sys_id || 'mockSysId';
         });
         this.setLimit = jest.fn().mockImplementation((limit) => {
@@ -430,6 +432,9 @@ class MockGlideRecord {
                 this.data = this.data.slice(0, this.mockLimit);
             }
         }
+    }
+    operation() {
+        return this._operation;
     }
 }
 exports.MockGlideRecord = MockGlideRecord;

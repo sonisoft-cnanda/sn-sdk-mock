@@ -191,6 +191,12 @@ class MockGlideQueryCondition {
 }
 exports.MockGlideQueryCondition = MockGlideQueryCondition;
 class MockGlideRecord {
+    get mockNew() {
+        return this._mockNew;
+    }
+    set mockNew(value) {
+        this._mockNew = value;
+    }
     get mockQuery() {
         return this._mockQuery;
     }
@@ -247,26 +253,19 @@ class MockGlideRecord {
         });
         return guid;
     }
-    get mockNew() {
-        return this._mockNew;
-    }
-    set mockNew(value) {
-        this._mockNew = value;
-    }
     constructor(tableName) {
         this._database = Database.getInstance();
+        this._mockNew = {};
         this._mockLimit = 0;
         //private _currentRecord: number;
         //private _properties: Record<string, any>;
         this._isNewRecord = false;
         this._sys_id = this.generateGUID();
         this._conditions = [];
-        this._mockNew = {};
         this.initialize = jest.fn().mockImplementation(() => {
             this._isNewRecord = true;
-            this._mockCurrent = this._mockNew;
-            this._mockNew.sys_id = this.generateGUID();
-            this._sys_id = this._mockNew.sys_id;
+            // this._mockRecords.push({});
+            // this._mockIndex++;
         });
         this.next = jest.fn().mockImplementation(() => {
             this._mockIndex++;
@@ -274,7 +273,6 @@ class MockGlideRecord {
                 return false;
             }
             this._mockCurrent = this.data[this.mockIndex];
-            this._sys_id = this._mockCurrent.sys_id;
             return true;
         });
         this.get = jest.fn().mockImplementation((sysId) => {
@@ -291,7 +289,6 @@ class MockGlideRecord {
             this._mockCurrent = this.data.find((record) => record.sys_id === sysId);
             if (this._mockCurrent) {
                 this.mockIndex = this.data.indexOf(this._mockCurrent);
-                this._sys_id = this._mockCurrent.sys_id;
             }
             return this._mockCurrent;
         });

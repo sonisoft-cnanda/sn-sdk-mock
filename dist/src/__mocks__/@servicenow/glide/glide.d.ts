@@ -85,6 +85,9 @@ export declare class MockGlideQueryCondition {
 }
 export declare class MockGlideRecord {
     _database: Database;
+    private _mockNew;
+    get mockNew(): any;
+    set mockNew(value: any);
     private _tableName;
     private _mockQuery;
     get mockQuery(): unknown[];
@@ -112,9 +115,6 @@ export declare class MockGlideRecord {
     get conditions(): MockGlideQueryCondition[];
     set conditions(value: MockGlideQueryCondition[]);
     generateGUID(): string;
-    private _mockNew;
-    get mockNew(): any;
-    set mockNew(value: any);
     constructor(tableName: string);
     initialize: jest.Mock<any, any, any>;
     initQueryGr(): void;

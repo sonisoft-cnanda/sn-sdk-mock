@@ -14,6 +14,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./glide"), exports);
-__exportStar(require("./x_taniu_tan_core"), exports);
+__exportStar(require("./glide.js"), exports);
+__exportStar(require("./x_taniu_tan_core/index.js"), exports);
 //# sourceMappingURL=index.js.map

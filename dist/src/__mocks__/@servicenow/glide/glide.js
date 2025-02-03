@@ -4,7 +4,7 @@ exports.MockAbstractAjaxProcessor = exports.mockGs = exports.MockGlideTime = exp
 exports.newMockGlideDateTime = newMockGlideDateTime;
 exports.newMockGlideSystem = newMockGlideSystem;
 const parseISO_1 = require("date-fns/parseISO");
-const DBUtil_1 = require("../../../common/DBUtil");
+const DBUtil_1 = require("../../../common/DBUtil.js");
 const console_1 = require("console");
 exports.MOCKED_PROPERTIES = {
     'x_taniu_tan_core.tanium_api_endpoint': 'https://my.tanium.instance/api/v2/',

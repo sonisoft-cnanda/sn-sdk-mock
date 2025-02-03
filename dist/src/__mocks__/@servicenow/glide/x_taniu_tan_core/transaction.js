@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MockTransactionBuilder = exports.MockTransaction = void 0;
-const glide_1 = require("../glide");
+const glide_1 = require("../glide.js");
 jest.mock('@servicenow/glide', () => {
     return {
         GlideRecord: jest.fn().mockImplementation((tableName) => new glide_1.MockGlideRecord(tableName)),

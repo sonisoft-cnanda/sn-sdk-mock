@@ -1,5 +1,5 @@
-export * from './MockVulnerabilityIntegrationBase';
-export * from './MockVulnerabilityIntegrationUtils';
-export * from './sn_ws_data';
-export * from './@servicenow/glide';
+export * from './MockVulnerabilityIntegrationBase.js';
+export * from './MockVulnerabilityIntegrationUtils.js';
+export * from './sn_ws_data.js';
+export * from './@servicenow/glide/index.js';
 //# sourceMappingURL=index.d.ts.map

@@ -1,2 +1,2 @@
-export * from './DBUtil';
+export * from './DBUtil.js';
 //# sourceMappingURL=index.d.ts.map

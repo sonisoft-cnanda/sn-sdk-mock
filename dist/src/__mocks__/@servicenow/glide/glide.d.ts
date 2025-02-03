@@ -39,16 +39,16 @@ export declare class Database {
 export declare class MockPropertyTable {
     private _properties;
     constructor();
-    getProperty: any;
-    setProperty: any;
+    getProperty: jest.Mock<any, any, any>;
+    setProperty: jest.Mock<any, any, any>;
 }
 export declare class MockPropertyDB {
     private static _instance;
     static getInstance(): MockPropertyDB;
     private _propertiesTable;
     constructor();
-    getProperty: any;
-    setProperty: any;
+    getProperty: jest.Mock<any, any, any>;
+    setProperty: jest.Mock<any, any, any>;
 }
 export declare class MockEventQueue {
     private static _instance;
@@ -60,18 +60,18 @@ export declare class MockGlideSystem {
     private _data;
     get data(): InMemoryDataTable;
     constructor();
-    getProperty: any;
-    setProperty: any;
-    log: any;
-    importXML: any;
-    getUserName: any;
-    getSystemId: any;
-    nil: any;
-    error: any;
-    warn: any;
-    debug: any;
-    info: any;
-    eventQueue: any;
+    getProperty: jest.Mock<any, any, any>;
+    setProperty: jest.Mock<any, any, any>;
+    log: jest.Mock<any, any, any>;
+    importXML: jest.Mock<any, any, any>;
+    getUserName: jest.Mock<any, any, any>;
+    getSystemId: jest.Mock<any, any, any>;
+    nil: jest.Mock<boolean, [value: unknown], any>;
+    error: jest.Mock<any, any, any>;
+    warn: jest.Mock<any, any, any>;
+    debug: jest.Mock<any, any, any>;
+    info: jest.Mock<any, any, any>;
+    eventQueue: jest.Mock<any, any, any>;
 }
 export declare class MockGlideQueryCondition {
     private conditions;
@@ -116,35 +116,35 @@ export declare class MockGlideRecord {
     get mockNew(): any;
     set mockNew(value: any);
     constructor(tableName: string);
-    initialize: any;
+    initialize: jest.Mock<any, any, any>;
     initQueryGr(): void;
     operation(): string;
-    next: any;
-    get: any;
-    isNewRecord: any;
-    addEncodedQuery: any;
-    addActiveQuery: any;
-    addQuery: any;
-    query: any;
-    deleteMultiple: any;
-    insert: any;
-    update: any;
-    setLimit: any;
-    setValue: any;
-    getValue: any;
-    getElement: any;
-    getUniqueValue: any;
-    isValidField: any;
-    isValidRecord: any;
-    isValid: any;
-    getTableName: any;
-    getRecordClassName: any;
-    getRowCount: any;
-    hasNext: any;
-    addRecord: any;
-    reset: any;
-    setMockData: any;
-    getMockData: any;
+    next: jest.Mock<any, any, any>;
+    get: jest.Mock<any, any, any>;
+    isNewRecord: jest.Mock<any, any, any>;
+    addEncodedQuery: jest.Mock<any, any, any>;
+    addActiveQuery: jest.Mock<any, any, any>;
+    addQuery: jest.Mock<any, any, any>;
+    query: jest.Mock<any, any, any>;
+    deleteMultiple: jest.Mock<any, any, any>;
+    insert: jest.Mock<any, any, any>;
+    update: jest.Mock<any, any, any>;
+    setLimit: jest.Mock<any, any, any>;
+    setValue: jest.Mock<any, any, any>;
+    getValue: jest.Mock<any, any, any>;
+    getElement: jest.Mock<any, any, any>;
+    getUniqueValue: jest.Mock<any, any, any>;
+    isValidField: jest.Mock<any, any, any>;
+    isValidRecord: jest.Mock<any, any, any>;
+    isValid: jest.Mock<any, any, any>;
+    getTableName: jest.Mock<any, any, any>;
+    getRecordClassName: jest.Mock<any, any, any>;
+    getRowCount: jest.Mock<any, any, any>;
+    hasNext: jest.Mock<any, any, any>;
+    addRecord: jest.Mock<any, any, any>;
+    reset: jest.Mock<any, any, any>;
+    setMockData: jest.Mock<any, any, any>;
+    getMockData: jest.Mock<any, any, any>;
 }
 export declare class GlideRecord extends MockGlideRecord {
 }
@@ -153,35 +153,35 @@ export declare class MockGlideElement {
     private _refRecordTableName;
     private _refRecord;
     constructor(value: any);
-    setRefRecordTableName: any;
-    getValue: any;
-    setValue: any;
-    getDisplayValue: any;
-    getRefRecord: any;
-    setRefRecord: any;
-    nil: any;
-    changes: any;
-    changesFrom: any;
-    changesTo: any;
-    getBooleanValue: any;
-    getHTMLValue: any;
-    getRefTable: any;
-    getRefField: any;
-    getRefRecordSysId: any;
-    getRefRecordDisplayValue: any;
-    getRefRecordValue: any;
-    getRefRecordDisplayValues: any;
-    getRefRecordValues: any;
-    getRefRecordVariables: any;
+    setRefRecordTableName: jest.Mock<any, any, any>;
+    getValue: jest.Mock<any, any, any>;
+    setValue: jest.Mock<any, any, any>;
+    getDisplayValue: jest.Mock<any, any, any>;
+    getRefRecord: jest.Mock<any, any, any>;
+    setRefRecord: jest.Mock<any, any, any>;
+    nil: jest.Mock<any, any, any>;
+    changes: jest.Mock<any, any, any>;
+    changesFrom: jest.Mock<any, any, any>;
+    changesTo: jest.Mock<any, any, any>;
+    getBooleanValue: jest.Mock<any, any, any>;
+    getHTMLValue: jest.Mock<any, any, any>;
+    getRefTable: jest.Mock<any, any, any>;
+    getRefField: jest.Mock<any, any, any>;
+    getRefRecordSysId: jest.Mock<any, any, any>;
+    getRefRecordDisplayValue: jest.Mock<any, any, any>;
+    getRefRecordValue: jest.Mock<any, any, any>;
+    getRefRecordDisplayValues: jest.Mock<any, any, any>;
+    getRefRecordValues: jest.Mock<any, any, any>;
+    getRefRecordVariables: jest.Mock<any, any, any>;
 }
 export declare const gs: {
-    setProperty: any;
-    getProperty: any;
-    error: any;
-    debug: any;
-    warn: any;
-    urlEncode: any;
-    nil: any;
+    setProperty: jest.Mock<any, any, any>;
+    getProperty: jest.Mock<any, any, any>;
+    error: jest.Mock<any, any, any>;
+    debug: jest.Mock<any, any, any>;
+    warn: jest.Mock<any, any, any>;
+    urlEncode: jest.Mock<any, [x: any], any>;
+    nil: jest.Mock<boolean, [value: unknown], any>;
 };
 export declare class GlideDate {
     _mockDate: Date;
@@ -207,17 +207,17 @@ export declare class MockGlideDateTime {
     get dateInstance(): Date;
     set dateInstance(value: Date);
     constructor(dt?: string | number | null);
-    getTime: any;
-    getNumericValue: any;
-    getYearLocalTime: any;
-    getMonthLocalTime: any;
-    getDayOfMonthLocalTime: any;
-    getYearUTC: any;
-    getMonthUTC: any;
-    getDayOfMonthUTC: any;
-    addDays: any;
-    addSeconds: any;
-    toString: any;
+    getTime: jest.Mock<any, any, any>;
+    getNumericValue: jest.Mock<any, any, any>;
+    getYearLocalTime: jest.Mock<number, [], any>;
+    getMonthLocalTime: jest.Mock<number, [], any>;
+    getDayOfMonthLocalTime: jest.Mock<number, [], any>;
+    getYearUTC: jest.Mock<number, [], any>;
+    getMonthUTC: jest.Mock<number, [], any>;
+    getDayOfMonthUTC: jest.Mock<number, [], any>;
+    addDays: jest.Mock<any, any, any>;
+    addSeconds: jest.Mock<void, [val: number], any>;
+    toString: jest.Mock<string, [], any>;
 }
 export declare function newMockGlideDateTime(dt?: string | number | null): GlideDateTime;
 export declare class MockGlideTime {
@@ -225,7 +225,7 @@ export declare class MockGlideTime {
     get dateInstance(): Date;
     set dateInstance(value: Date);
     constructor(dt: Date);
-    getByFormat: any;
+    getByFormat: jest.Mock<string | number, [val: string], any>;
 }
 export declare function newMockGlideSystem(): MockGlideSystem;
 export declare const mockGs: MockGlideSystem;
@@ -235,17 +235,17 @@ export declare class MockAbstractAjaxProcessor {
     private responseXML;
     private gc;
     constructor(request?: any, responseXML?: any, gc?: any);
-    process: any;
-    newItem: any;
-    getParameter: any;
-    getDocument: any;
-    getRootElement: any;
-    getName: any;
-    getValue: any;
-    getType: any;
-    getChars: any;
-    setAnswer: any;
-    setError: any;
+    process: jest.Mock<any, any, any>;
+    newItem: jest.Mock<any, any, any>;
+    getParameter: jest.Mock<any, any, any>;
+    getDocument: jest.Mock<any, any, any>;
+    getRootElement: jest.Mock<any, any, any>;
+    getName: jest.Mock<any, any, any>;
+    getValue: jest.Mock<any, any, any>;
+    getType: jest.Mock<any, any, any>;
+    getChars: jest.Mock<any, any, any>;
+    setAnswer: jest.Mock<any, any, any>;
+    setError: jest.Mock<any, any, any>;
     type: string;
 }
 //# sourceMappingURL=glide.d.ts.map

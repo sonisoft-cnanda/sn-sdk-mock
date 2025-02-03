@@ -264,8 +264,9 @@ class MockGlideRecord {
         this._conditions = [];
         this.initialize = jest.fn().mockImplementation(() => {
             this._isNewRecord = true;
-            // this._mockRecords.push({});
-            // this._mockIndex++;
+            this._mockCurrent = this._mockNew;
+            this._mockNew.sys_id = this.generateGUID();
+            this._sys_id = this._mockNew.sys_id;
         });
         this.next = jest.fn().mockImplementation(() => {
             this._mockIndex++;
@@ -331,14 +332,15 @@ class MockGlideRecord {
             if (this._mockNew) {
                 let dbTable = this._database.getTable(this._tableName);
                 if (dbTable) {
+                    this._operation = "insert";
                     let id = this._mockNew.sys_id;
                     dbTable.addRow(this._mockNew);
                     this._mockNew = null;
                     this.get(id);
+                    return this.mockCurrent.sys_id;
                 }
             }
-            this._operation = "insert";
-            return this.sys_id || null;
+            return null;
         });
         this.update = jest.fn().mockImplementation(() => {
             const record = this._mockCurrent;
@@ -422,6 +424,7 @@ class MockGlideRecord {
         this._isNewRecord = false;
         //this.data.push({});
         this.mockIndex = -1;
+        this._sys_id = this._mockCurrent.sys_id;
         let dbTable = this._database.getTable(this._tableName);
         if (dbTable) {
             this.data = dbTable.getRows();

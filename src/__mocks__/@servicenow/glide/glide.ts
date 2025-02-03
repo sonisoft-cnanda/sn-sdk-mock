@@ -254,6 +254,7 @@ export class MockGlideRecord {
     public set mockNew(value:any){
         this._mockNew = value;
     }
+    
 
     private _tableName: string;
     private _mockQuery: unknown[];
@@ -348,8 +349,9 @@ export class MockGlideRecord {
 
     initialize = jest.fn().mockImplementation(() => {
         this._isNewRecord = true;
-        // this._mockRecords.push({});
-        // this._mockIndex++;
+        this._mockCurrent = this._mockNew;
+        this._mockNew.sys_id = this.generateGUID();
+        this._sys_id = this._mockNew.sys_id;
     });
 
     initQueryGr(){
@@ -359,7 +361,7 @@ export class MockGlideRecord {
         this._isNewRecord = false;
         //this.data.push({});
         this.mockIndex = -1;
-
+        this._sys_id = this._mockCurrent.sys_id;
         let dbTable:InMemoryDataTable = this._database.getTable(this._tableName);
         if(dbTable){
             this.data = dbTable.getRows();
@@ -445,17 +447,18 @@ export class MockGlideRecord {
 
     public insert = jest.fn().mockImplementation(() => {
         if(this._mockNew){
-
             let dbTable:InMemoryDataTable = this._database.getTable(this._tableName);
             if(dbTable){
+                 this._operation = "insert"
                 let id = this._mockNew.sys_id;
                 dbTable.addRow(this._mockNew);
                 this._mockNew = null;
                 this.get(id);
+                return this.mockCurrent.sys_id;
             }
         }
-        this._operation = "insert"
-        return this.sys_id || null;
+       
+        return null;
 
     });
 

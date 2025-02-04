@@ -403,7 +403,7 @@ export class MockGlideRecord {
     });
 
     public isNewRecord = jest.fn().mockImplementation(() => {
-        return this.isNewRecord;
+        return this._isNewRecord;
     });
 
     public addEncodedQuery = jest.fn().mockImplementation((query:string) => {
@@ -447,7 +447,7 @@ export class MockGlideRecord {
 
     public insert = jest.fn().mockImplementation(() => {
         if(this._mockNew){
-            let dbTable:InMemoryDataTable = this._database.getTable(this._tableName);
+            let dbTable:InMemoryDataTable = this._database.addTable(this._tableName);
             if(dbTable){
                  this._operation = "insert"
                 let id = this._mockNew.sys_id;

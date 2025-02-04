@@ -236,10 +236,6 @@ class MockGlideRecord {
     set newRecord(value) {
         this._isNewRecord = value;
     }
-    ;
-    get sys_id() {
-        return this._sys_id;
-    }
     get conditions() {
         return this._conditions;
     }
@@ -260,13 +256,16 @@ class MockGlideRecord {
         //private _currentRecord: number;
         //private _properties: Record<string, any>;
         this._isNewRecord = false;
-        this._sys_id = this.generateGUID();
+        // private _sys_id: string = this.generateGUID(); ;
+        // public get sys_id(){
+        //     return this._sys_id;
+        // }
         this._conditions = [];
         this.initialize = jest.fn().mockImplementation(() => {
             this._isNewRecord = true;
             this._mockCurrent = this._mockNew;
             this._mockNew.sys_id = this.generateGUID();
-            this._sys_id = this._mockNew.sys_id;
+            //this._sys_id = this._mockNew.sys_id;
         });
         this.next = jest.fn().mockImplementation(() => {
             this._mockIndex++;
@@ -371,7 +370,7 @@ class MockGlideRecord {
             return null;
         });
         this.getUniqueValue = jest.fn().mockImplementation(() => {
-            return this.sys_id;
+            return this.getValue('sys_id');
         });
         this.isValidField = jest.fn().mockImplementation(() => {
             return true;
@@ -424,7 +423,7 @@ class MockGlideRecord {
         this._isNewRecord = false;
         //this.data.push({});
         this.mockIndex = -1;
-        this._sys_id = this._mockCurrent.sys_id;
+        //this._sys_id = this._mockCurrent.sys_id;
         let dbTable = this._database.getTable(this._tableName);
         if (dbTable) {
             this.data = dbTable.getRows();
@@ -455,15 +454,15 @@ class MockGlideElement {
             return this._value.toString();
         });
         this.getRefRecord = jest.fn().mockImplementation(() => {
-            if (!this._refRecord && this._refRecordTableName) {
-                this._refRecord = new GlideRecord(this._refRecordTableName);
-            }
-            else if (!this._refRecord) {
-                this._refRecord = {
-                    sys_id: this._value,
-                    getUniqueValue: () => this._value
-                };
-            }
+            // if(!this._refRecord && this._refRecordTableName){
+            //     this._refRecord = new GlideRecord(this._refRecordTableName);
+            // }
+            // } else if(!this._refRecord){
+            //     this._refRecord = {
+            //         sys_id: this._value,
+            //         getUniqueValue: ()=>this._value
+            //     } as MockGlideRecord
+            // }
             return this._refRecord;
         });
         this.setRefRecord = jest.fn().mockImplementation((record) => {

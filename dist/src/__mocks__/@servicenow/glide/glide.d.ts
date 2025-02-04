@@ -109,8 +109,6 @@ export declare class MockGlideRecord {
     set data(value: any[]);
     private _isNewRecord;
     set newRecord(value: boolean);
-    private _sys_id;
-    get sys_id(): string;
     private _conditions;
     get conditions(): MockGlideQueryCondition[];
     set conditions(value: MockGlideQueryCondition[]);

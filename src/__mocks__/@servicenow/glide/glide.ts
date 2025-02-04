@@ -312,10 +312,10 @@ export class MockGlideRecord {
         this._isNewRecord = value;
     }
 
-    private _sys_id: string = this.generateGUID(); ;
-    public get sys_id(){
-        return this._sys_id;
-    }
+    // private _sys_id: string = this.generateGUID(); ;
+    // public get sys_id(){
+    //     return this._sys_id;
+    // }
 
     private _conditions:MockGlideQueryCondition[] = [];
     public get conditions():MockGlideQueryCondition[]{
@@ -351,7 +351,7 @@ export class MockGlideRecord {
         this._isNewRecord = true;
         this._mockCurrent = this._mockNew;
         this._mockNew.sys_id = this.generateGUID();
-        this._sys_id = this._mockNew.sys_id;
+        //this._sys_id = this._mockNew.sys_id;
     });
 
     initQueryGr(){
@@ -361,7 +361,7 @@ export class MockGlideRecord {
         this._isNewRecord = false;
         //this.data.push({});
         this.mockIndex = -1;
-        this._sys_id = this._mockCurrent.sys_id;
+        //this._sys_id = this._mockCurrent.sys_id;
         let dbTable:InMemoryDataTable = this._database.getTable(this._tableName);
         if(dbTable){
             this.data = dbTable.getRows();
@@ -497,7 +497,7 @@ export class MockGlideRecord {
     });
 
     getUniqueValue = jest.fn().mockImplementation(() => {
-        return this.sys_id;
+        return this.getValue('sys_id');
     });
 
     isValidField = jest.fn().mockImplementation(() => {
@@ -573,14 +573,15 @@ export class MockGlideElement {
     });
 
     getRefRecord = jest.fn().mockImplementation(() => {
-        if(!this._refRecord && this._refRecordTableName){
-            this._refRecord = new GlideRecord(this._refRecordTableName);
-        } else if(!this._refRecord){
-            this._refRecord = {
-                sys_id: this._value,
-                getUniqueValue: ()=>this._value
-            } as MockGlideRecord
-        }
+        // if(!this._refRecord && this._refRecordTableName){
+        //     this._refRecord = new GlideRecord(this._refRecordTableName);
+        // }
+        // } else if(!this._refRecord){
+        //     this._refRecord = {
+        //         sys_id: this._value,
+        //         getUniqueValue: ()=>this._value
+        //     } as MockGlideRecord
+        // }
         return this._refRecord; 
     });
 

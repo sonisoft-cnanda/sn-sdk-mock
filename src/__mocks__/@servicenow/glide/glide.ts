@@ -222,6 +222,10 @@ export class MockGlideSystem {
 
     });
 
+    urlEncode = jest.fn().mockImplementation((value:string) => {
+        return encodeURIComponent(value);
+    });
+
 }
 
 export class MockGlideQueryCondition {

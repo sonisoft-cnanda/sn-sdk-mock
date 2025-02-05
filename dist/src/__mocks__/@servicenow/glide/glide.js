@@ -169,6 +169,9 @@ class MockGlideSystem {
         });
         this.eventQueue = jest.fn().mockImplementation((eventName, instance, parm1, parm2, queue) => {
         });
+        this.urlEncode = jest.fn().mockImplementation((value) => {
+            return encodeURIComponent(value);
+        });
         this._data = Database.getInstance().addTable('sys_properties');
     }
 }

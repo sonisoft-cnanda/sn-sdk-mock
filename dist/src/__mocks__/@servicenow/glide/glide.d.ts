@@ -72,6 +72,7 @@ export declare class MockGlideSystem {
     debug: jest.Mock<any, any, any>;
     info: jest.Mock<any, any, any>;
     eventQueue: jest.Mock<any, any, any>;
+    urlEncode: jest.Mock<any, any, any>;
 }
 export declare class MockGlideQueryCondition {
     private conditions;

@@ -98,7 +98,19 @@ class MockRESTMessageV2 {
             return response;
         });
         this.executeAsync = jest.fn().mockImplementation(() => {
-            throw new Error("Method not implemented.");
+            let body = this._bodyTemplate;
+            this._parameters.forEach((param) => {
+                if (body)
+                    body = body.replace('\\${' + param.name + '}', param.value);
+                this._headers.forEach((header) => {
+                    header.value = header.value.replace('${' + param.name + '}', param.value);
+                });
+                if (this._endpoint)
+                    this._endpoint = this._endpoint.replace('${' + param.name + '}', param.value);
+            });
+            this._restMessageBody = body;
+            let response = new MockRESTResponseV2(this);
+            return response;
         });
         this.setHttpTimeout = jest.fn().mockImplementation((timeout) => {
             this.mockProperties["http_timeout"] = timeout.toString();

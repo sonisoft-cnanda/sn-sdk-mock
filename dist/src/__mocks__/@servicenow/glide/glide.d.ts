@@ -145,6 +145,12 @@ export declare class MockGlideRecord {
     setMockData: jest.Mock<any, any, any>;
     getMockData: jest.Mock<any, any, any>;
 }
+export declare class MockGlideAggregate extends MockGlideRecord {
+    private _groupBy;
+    get groupByVal(): string;
+    set groupByVal(value: string);
+    groupBy: jest.Mock<any, any, any>;
+}
 export declare class GlideRecord extends MockGlideRecord {
 }
 export declare class MockGlideElement {

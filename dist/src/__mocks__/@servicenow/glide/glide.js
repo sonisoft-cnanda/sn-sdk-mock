@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MockAbstractAjaxProcessor = exports.mockGs = exports.MockGlideTime = exports.MockGlideDateTime = exports.GlideDateTime = exports.GlideTime = exports.GlideDate = exports.gs = exports.MockGlideElement = exports.GlideRecord = exports.MockGlideRecord = exports.MockGlideQueryCondition = exports.MockGlideSystem = exports.MockEventQueue = exports.MockPropertyDB = exports.MockPropertyTable = exports.Database = exports.InMemoryDataTable = exports.MOCKED_PROPERTIES = void 0;
+exports.MockAbstractAjaxProcessor = exports.mockGs = exports.MockGlideTime = exports.MockGlideDateTime = exports.GlideDateTime = exports.GlideTime = exports.GlideDate = exports.gs = exports.MockGlideElement = exports.GlideRecord = exports.MockGlideAggregate = exports.MockGlideRecord = exports.MockGlideQueryCondition = exports.MockGlideSystem = exports.MockEventQueue = exports.MockPropertyDB = exports.MockPropertyTable = exports.Database = exports.InMemoryDataTable = exports.MOCKED_PROPERTIES = void 0;
 exports.newMockGlideDateTime = newMockGlideDateTime;
 exports.newMockGlideSystem = newMockGlideSystem;
 const parseISO_1 = require("date-fns/parseISO");
@@ -440,6 +440,23 @@ class MockGlideRecord {
     }
 }
 exports.MockGlideRecord = MockGlideRecord;
+class MockGlideAggregate extends MockGlideRecord {
+    constructor() {
+        super(...arguments);
+        this._groupBy = null;
+        this.groupBy = jest.fn().mockImplementation((column) => {
+            this.groupByVal = column;
+            return this;
+        });
+    }
+    get groupByVal() {
+        return this._groupBy;
+    }
+    set groupByVal(value) {
+        this._groupBy = value;
+    }
+}
+exports.MockGlideAggregate = MockGlideAggregate;
 class GlideRecord extends MockGlideRecord {
 }
 exports.GlideRecord = GlideRecord;

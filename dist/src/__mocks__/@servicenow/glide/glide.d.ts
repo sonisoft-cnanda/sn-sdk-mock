@@ -116,6 +116,9 @@ export declare class MockGlideRecord {
     generateGUID(): string;
     constructor(tableName: string);
     initialize: jest.Mock<any, any, any>;
+    initProperties(): void;
+    defineProperty(prop: any): void;
+    isElementReferenceType(propName: any): boolean;
     initQueryGr(): void;
     operation(): string;
     next: jest.Mock<any, any, any>;

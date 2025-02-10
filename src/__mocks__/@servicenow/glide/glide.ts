@@ -358,6 +358,46 @@ export class MockGlideRecord {
         //this._sys_id = this._mockNew.sys_id;
     });
 
+    initProperties(){
+		
+		var elements = Object.getOwnPropertyNames(this._mockCurrent);
+		//gs.debug("Elements: " + elements.length);
+		for(var i=0; i < elements.length; i++){
+			var strElemName = elements[i]
+			//gs.debug("Defining property: " + strElemName);
+			this.defineProperty(strElemName);
+		}
+	}
+
+    defineProperty(prop) {
+		//This is basically the same thing SN does, the other properties need to be accessed via the getValue or _next type methods 
+		if(MockGlideRecord.prototype.hasOwnProperty(prop))
+			return;
+			
+        Object.defineProperty(this, prop, {
+            get: () => {
+				//gs.debug("getter: " + prop);
+                if(this.isElementReferenceType(prop)){
+                    return this.getElement(prop);
+                }else
+                    return this.getValue(prop);
+            },
+              set: (value) => {
+				//gs.debug("setter: " + prop);
+                this.setValue(prop,value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+    }
+
+    isElementReferenceType(propName){
+        
+        var isRefType = false;
+        var isRef = Object.getPrototypeOf( this._mockCurrent[propName]) == MockGlideElement.prototype ? true : false;
+		return isRef;
+    }
+
     initQueryGr(){
        
         this._mockCurrent = {};

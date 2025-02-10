@@ -211,6 +211,9 @@ class MockGlideRecord {
     }
     set mockCurrent(value) {
         this._mockCurrent = value;
+        if (this._mockCurrent) {
+            this.initProperties();
+        }
     }
     get mockIndex() {
         return this._mockIndex;
@@ -266,7 +269,7 @@ class MockGlideRecord {
         this._conditions = [];
         this.initialize = jest.fn().mockImplementation(() => {
             this._isNewRecord = true;
-            this._mockCurrent = this._mockNew;
+            this.mockCurrent = this._mockNew;
             this._mockNew.sys_id = this.generateGUID();
             //this._sys_id = this._mockNew.sys_id;
         });
@@ -275,7 +278,7 @@ class MockGlideRecord {
             if (this._mockIndex >= this.data.length) {
                 return false;
             }
-            this._mockCurrent = this.data[this.mockIndex];
+            this.mockCurrent = this.data[this.mockIndex];
             return true;
         });
         this.get = jest.fn().mockImplementation((sysId) => {
@@ -289,11 +292,11 @@ class MockGlideRecord {
             //     this.mockIndex = 0;
             //     return this._mockCurrent
             // }
-            this._mockCurrent = this.data.find((record) => record.sys_id === sysId);
+            this.mockCurrent = this.data.find((record) => record.sys_id === sysId);
             if (this._mockCurrent) {
-                this.mockIndex = this.data.indexOf(this._mockCurrent);
+                this.mockIndex = this.data.indexOf(this.mockCurrent);
             }
-            return this._mockCurrent;
+            return this.mockCurrent;
         });
         this.isNewRecord = jest.fn().mockImplementation(() => {
             return this._isNewRecord;
@@ -345,7 +348,7 @@ class MockGlideRecord {
             return null;
         });
         this.update = jest.fn().mockImplementation(() => {
-            const record = this._mockCurrent;
+            const record = this.mockCurrent;
             if (record) {
                 record._mockUpdated = true;
             }
@@ -356,20 +359,20 @@ class MockGlideRecord {
             this.mockLimit = limit;
         });
         this.setValue = jest.fn().mockImplementation((column, value) => {
-            this._mockCurrent[column] = value;
+            this.mockCurrent[column] = value;
             this[column] = new MockGlideElement(value); // hacky glideelement replacement for now
             //this._properties[column] = value;
         });
         this.getValue = jest.fn().mockImplementation((column) => {
-            return this._mockCurrent[column] ?? null;
+            return this.mockCurrent[column] ?? null;
         });
         this.getElement = jest.fn().mockImplementation((column) => {
-            if (this._mockCurrent[column]) {
-                return new MockGlideElement(this._mockCurrent[column]);
-                //return this._mockCurrent[column];
-            } //else{
-            //     this._mockCurrent[column] = new MockGlideElement(null);
-            // }
+            if (this.mockCurrent[column]) {
+                if (this.mockCurrent[column] instanceof MockGlideElement) {
+                    return this.mockCurrent[column];
+                }
+                return new MockGlideElement(this.mockCurrent[column]);
+            }
             return null;
         });
         this.getUniqueValue = jest.fn().mockImplementation(() => {

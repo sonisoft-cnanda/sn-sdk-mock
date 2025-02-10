@@ -277,6 +277,9 @@ export class MockGlideRecord {
     }
     public set mockCurrent(value: Record<string, any>) {
         this._mockCurrent = value;
+        if(this._mockCurrent){
+            this.initProperties();
+        }
     }
     private _mockIndex: number;
     public get mockIndex(): number {
@@ -353,7 +356,7 @@ export class MockGlideRecord {
 
     initialize = jest.fn().mockImplementation(() => {
         this._isNewRecord = true;
-        this._mockCurrent = this._mockNew;
+        this.mockCurrent = this._mockNew;
         this._mockNew.sys_id = this.generateGUID();
         //this._sys_id = this._mockNew.sys_id;
     });
@@ -423,7 +426,7 @@ export class MockGlideRecord {
         if (this._mockIndex >= this.data.length) {
             return false;
         }
-        this._mockCurrent = this.data[this.mockIndex];
+        this.mockCurrent = this.data[this.mockIndex];
         return true;
     });
 
@@ -439,11 +442,11 @@ export class MockGlideRecord {
         //     return this._mockCurrent
         // }
 
-        this._mockCurrent = this.data.find((record) => record.sys_id === sysId);
+        this.mockCurrent  = this.data.find((record) => record.sys_id === sysId);
         if(this._mockCurrent){
-            this.mockIndex = this.data.indexOf(this._mockCurrent);
+            this.mockIndex = this.data.indexOf(  this.mockCurrent );
         }
-        return this._mockCurrent;
+        return   this.mockCurrent ;
     });
 
     public isNewRecord = jest.fn().mockImplementation(() => {
@@ -507,7 +510,7 @@ export class MockGlideRecord {
     });
 
     public update = jest.fn().mockImplementation(() => {
-        const record = this._mockCurrent;
+        const record =   this.mockCurrent ;
         if (record) {
             record._mockUpdated = true;
         }
@@ -520,22 +523,22 @@ export class MockGlideRecord {
     });
 
     setValue = jest.fn().mockImplementation((column: string, value: string) => {
-        this._mockCurrent[column] = value;
+        this.mockCurrent [column] = value;
         this[column] = new MockGlideElement(value); // hacky glideelement replacement for now
         //this._properties[column] = value;
     });
 
     getValue = jest.fn().mockImplementation((column: string) => {
-        return this._mockCurrent[column] ?? null;
+        return   this.mockCurrent [column] ?? null;
     });
 
     getElement = jest.fn().mockImplementation((column: string) => {
-        if(this._mockCurrent[column]){
-            return new MockGlideElement(this._mockCurrent[column])
-            //return this._mockCurrent[column];
-        } //else{
-        //     this._mockCurrent[column] = new MockGlideElement(null);
-        // }
+        if(  this.mockCurrent [column]){
+            if(  this.mockCurrent [column] instanceof MockGlideElement){
+                return   this.mockCurrent [column];
+            }
+            return new MockGlideElement(  this.mockCurrent [column])
+        } 
 
         return null;
     });

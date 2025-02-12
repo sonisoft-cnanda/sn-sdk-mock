@@ -464,6 +464,12 @@ export class MockGlideRecord {
         this._mockQuery.push(q);
     });
 
+    public addNotNullQuery = jest.fn().mockImplementation((name:string) => {
+        this._isNewRecord = false;
+         let q:string = `${name}!=NULL`;
+        this._mockQuery.push(q);
+    });
+
     // addQuery = jest.fn().mockImplementation((...args: any[]) => {
     //     this._isNewRecord = false;
     //     let q = "";

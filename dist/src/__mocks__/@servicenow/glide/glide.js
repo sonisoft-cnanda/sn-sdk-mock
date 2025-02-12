@@ -315,6 +315,13 @@ class MockGlideRecord {
             let q = `${name}!=NULL`;
             this._mockQuery.push(q);
         });
+        this.addNullQuery = jest.fn().mockImplementation((fieldName) => {
+            this._isNewRecord = false;
+            const condition = new MockGlideQueryCondition();
+            condition.addCondition(fieldName, 'NULL', null);
+            this._conditions.push(condition);
+            return condition;
+        });
         // addQuery = jest.fn().mockImplementation((...args: any[]) => {
         //     this._isNewRecord = false;
         //     let q = "";

@@ -127,6 +127,7 @@ export declare class MockGlideRecord {
     addEncodedQuery: jest.Mock<any, any, any>;
     addActiveQuery: jest.Mock<any, any, any>;
     addNotNullQuery: jest.Mock<any, any, any>;
+    addNullQuery: jest.Mock<any, any, any>;
     addQuery: jest.Mock<any, any, any>;
     query: jest.Mock<any, any, any>;
     deleteMultiple: jest.Mock<any, any, any>;

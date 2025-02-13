@@ -69,9 +69,6 @@ class MockRESTMessageV2 {
         this.setStringParameter = jest.fn().mockImplementation((name, value) => {
             this._parameters.push({ name: name, value: value });
         });
-        this.setStringParameterNoEscape = jest.fn().mockImplementation((name, value) => {
-            this._parameters.push({ name: name, value: value });
-        });
         this.getEndpoint = jest.fn().mockImplementation(() => {
             return this._endpoint;
         });
@@ -154,6 +151,12 @@ class MockRESTMessageV2 {
                 (0, console_1.error)("RESTMessageTemplate not found for " + name);
             }
         }
+    }
+    // setStringParameterNoEscape =  jest.fn().mockImplementation((name:string, value:string) => {
+    //     this._parameters.push({name: name, value: value});
+    // });
+    setStringParameterNoEscape(name, value) {
+        this._parameters.push({ name: name, value: value });
     }
     getMockProperties() {
         return this.mockProperties;

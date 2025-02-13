@@ -30,7 +30,7 @@ export declare class MockRESTMessageV2 {
     getRequestBody: jest.Mock<any, any, any>;
     setRequestHeader: jest.Mock<any, any, any>;
     setStringParameter: jest.Mock<any, any, any>;
-    setStringParameterNoEscape: jest.Mock<any, any, any>;
+    setStringParameterNoEscape(name: string, value: string): void;
     getEndpoint: jest.Mock<any, any, any>;
     setMIDServer: jest.Mock<any, any, any>;
     execute: jest.Mock<any, any, any>;

@@ -127,9 +127,13 @@ export class MockRESTResponseV2 {
         this._parameters.push({name: name, value: value});
     });
   
-    setStringParameterNoEscape =  jest.fn().mockImplementation((name:string, value:string) => {
+    // setStringParameterNoEscape =  jest.fn().mockImplementation((name:string, value:string) => {
+    //     this._parameters.push({name: name, value: value});
+    // });
+
+    public setStringParameterNoEscape(name:string, value:string){
         this._parameters.push({name: name, value: value});
-    });
+    }
 
 
     getEndpoint = jest.fn().mockImplementation(() => {

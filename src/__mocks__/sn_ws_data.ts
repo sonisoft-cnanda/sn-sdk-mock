@@ -51,6 +51,13 @@ export class MockRESTMessageV2 {
 
   private _restMessageBody: string | null = null;
   private _parameters: any[] = [];
+  public get parameters(): any[] {
+    return this._parameters;
+  }
+  public set parameters(value: any[]) {
+    this._parameters = value;
+  }
+  
   private _headers = new Array().fill({
     name: "session",
     value: "${session_id}",

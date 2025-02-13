@@ -35,6 +35,12 @@ class MockRESTMessageV2 {
     set endpoint(value) {
         this._endpoint = value;
     }
+    get parameters() {
+        return this._parameters;
+    }
+    set parameters(value) {
+        this._parameters = value;
+    }
     get bodyTemplate() {
         return this._bodyTemplate;
     }

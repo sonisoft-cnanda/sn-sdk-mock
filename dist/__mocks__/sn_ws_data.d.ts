@@ -20,6 +20,8 @@ export declare class MockRESTMessageV2 {
     set endpoint(value: string);
     private _restMessageBody;
     private _parameters;
+    get parameters(): any[];
+    set parameters(value: any[]);
     private _headers;
     private _bodyTemplate;
     get bodyTemplate(): string;

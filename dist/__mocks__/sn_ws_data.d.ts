@@ -13,8 +13,12 @@ export declare class MockRESTMessageV2 {
     private mockProperties;
     private mockEccParams;
     private mockParams;
-    private name;
-    private methodName;
+    private _name;
+    get name(): string | null;
+    set name(value: string | null);
+    private _methodName;
+    get methodName(): string | null;
+    set methodName(value: string | null);
     private _endpoint;
     get endpoint(): string;
     set endpoint(value: string);

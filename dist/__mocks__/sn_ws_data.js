@@ -29,6 +29,18 @@ class MockRESTResponseV2 {
 }
 exports.MockRESTResponseV2 = MockRESTResponseV2;
 class MockRESTMessageV2 {
+    get name() {
+        return this._name;
+    }
+    set name(value) {
+        this._name = value;
+    }
+    get methodName() {
+        return this._methodName;
+    }
+    set methodName(value) {
+        this._methodName = value;
+    }
     get endpoint() {
         return this._endpoint;
     }
@@ -48,8 +60,8 @@ class MockRESTMessageV2 {
         this._bodyTemplate = value;
     }
     constructor(name, methodName) {
-        this.name = null;
-        this.methodName = null;
+        this._name = null;
+        this._methodName = null;
         this._restMessageBody = null;
         this._parameters = [];
         this._headers = new Array().fill({

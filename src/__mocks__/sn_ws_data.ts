@@ -38,8 +38,22 @@ export class MockRESTMessageV2 {
   private mockProperties: Record<string, string>;
   private mockEccParams: Record<string, string>;
   private mockParams: Record<string, string>;
-  private name: string | null = null;
-  private methodName: string | null = null;
+  
+  private _name: string | null = null;
+  public get name(): string | null {
+    return this._name;
+  }
+  public set name(value: string | null) {
+    this._name = value;
+  }
+
+  private _methodName: string | null = null;
+  public get methodName(): string | null {
+    return this._methodName;
+  }
+  public set methodName(value: string | null) {
+    this._methodName = value;
+  }
 
   private _endpoint: string;
   public get endpoint(): string {
@@ -57,7 +71,7 @@ export class MockRESTMessageV2 {
   public set parameters(value: any[]) {
     this._parameters = value;
   }
-  
+
   private _headers = new Array().fill({
     name: "session",
     value: "${session_id}",

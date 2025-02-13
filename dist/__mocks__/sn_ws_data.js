@@ -5,26 +5,26 @@ const console_1 = require("console");
 class MockRESTResponseV2 {
     constructor(request) {
         this._headers = {};
-        this.getBody = jest.fn().mockImplementation(() => {
-            return RESTDataStore.getInstance().mockResponseBody;
-        });
-        this.getStatusCode = jest.fn().mockImplementation(() => {
-            return RESTDataStore.getInstance().mockResponseCode;
-        });
-        this.getRequest = jest.fn().mockImplementation(() => {
-            return this._mock_request;
-        });
-        this.getHeaders = jest.fn().mockImplementation(() => {
-            return this._headers;
-        });
-        this.getHeader = jest.fn().mockImplementation((headerName) => {
-            return this._headers[headerName];
-        });
-        this.haveError = jest.fn().mockImplementation(() => {
-            return RESTDataStore.getInstance().hasError;
-        });
         RESTDataStore.getInstance().addMockResponse(this);
         this._mock_request = request;
+    }
+    getBody() {
+        return RESTDataStore.getInstance().mockResponseBody;
+    }
+    getStatusCode() {
+        return RESTDataStore.getInstance().mockResponseCode;
+    }
+    getRequest() {
+        return this._mock_request;
+    }
+    getHeaders() {
+        return this._headers;
+    }
+    getHeader(headerName) {
+        return this._headers[headerName];
+    }
+    haveError() {
+        return RESTDataStore.getInstance().hasError;
     }
 }
 exports.MockRESTResponseV2 = MockRESTResponseV2;
@@ -46,89 +46,20 @@ class MockRESTMessageV2 {
         this.methodName = null;
         this._restMessageBody = null;
         this._parameters = [];
-        this._headers = new Array().fill({ name: 'session', value: '${session_id}' });
+        this._headers = new Array().fill({
+            name: "session",
+            value: "${session_id}",
+        });
         //private _endpoint = '${tanium_module_api_url}/gateway/graphql'; //Set from the REST Message Function definition
         this._bodyTemplate = null; //deployMutation; //print(deployMutation);;
-        this.getRequestHeader = jest.fn().mockImplementation((headerName) => {
-            if (headerName) {
-                let header = this._headers.find((header) => header.name === headerName);
-                if (header)
-                    return header.value;
-            }
-            return '';
-        });
-        this.getRequestHeaders = jest.fn().mockImplementation(() => {
-            return this._headers;
-        });
-        this.getRequestBody = jest.fn().mockImplementation(() => {
-            return this._restMessageBody;
-        });
-        this.setRequestHeader = jest.fn().mockImplementation((name, value) => {
-            this._headers.push({ name: name, value: value });
-        });
-        this.setStringParameter = jest.fn().mockImplementation((name, value) => {
-            this._parameters.push({ name: name, value: value });
-        });
-        this.getEndpoint = jest.fn().mockImplementation(() => {
-            return this._endpoint;
-        });
-        // setStringParameterNoEscape(key: string, value: string): void {
-        //     this.mockParams[key] = value;
-        // }
-        this.setMIDServer = jest.fn().mockImplementation((value) => {
-            this.mockProperties["mid_server"] = value;
-        });
-        this.execute = jest.fn().mockImplementation(() => {
-            //Generate a body value based on the deployMutation string
-            let body = this._bodyTemplate;
-            this._parameters.forEach((param) => {
-                if (body)
-                    body = body.replace('\\${' + param.name + '}', param.value);
-                this._headers.forEach((header) => {
-                    header.value = header.value.replace('${' + param.name + '}', param.value);
-                });
-                if (this._endpoint)
-                    this._endpoint = this._endpoint.replace('${' + param.name + '}', param.value);
-            });
-            this._restMessageBody = body;
-            let response = new MockRESTResponseV2(this);
-            return response;
-        });
-        this.executeAsync = jest.fn().mockImplementation(() => {
-            let body = this._bodyTemplate;
-            this._parameters.forEach((param) => {
-                if (body)
-                    body = body.replace('\\${' + param.name + '}', param.value);
-                this._headers.forEach((header) => {
-                    header.value = header.value.replace('${' + param.name + '}', param.value);
-                });
-                if (this._endpoint)
-                    this._endpoint = this._endpoint.replace('${' + param.name + '}', param.value);
-            });
-            this._restMessageBody = body;
-            let response = new MockRESTResponseV2(this);
-            return response;
-        });
-        this.setHttpTimeout = jest.fn().mockImplementation((timeout) => {
-            this.mockProperties["http_timeout"] = timeout.toString();
-        });
-        this.setEccParameter = jest.fn().mockImplementation((param, value) => {
-            this.mockEccParams[param] = value;
-        });
-        this.setHttpMethod = jest.fn().mockImplementation((method) => {
-            this.mockProperties["http_method"] = method;
-        });
-        this.setEndpoint = jest.fn().mockImplementation((endpoint) => {
-            this._endpoint = endpoint;
-        });
-        this.setRequestBody = jest.fn().mockImplementation((body) => {
-            this._restMessageBody = body;
-        });
         RESTDataStore.getInstance().addMockRequest(this);
         this.mockProperties = {};
         this.mockEccParams = {};
         this.mockParams = {};
-        this._headers = new Array().fill({ name: 'session', value: '${session_id}' });
+        this._headers = new Array().fill({
+            name: "session",
+            value: "${session_id}",
+        });
         if (name)
             this.name = name;
         if (methodName)
@@ -144,7 +75,10 @@ class MockRESTMessageV2 {
                     this._endpoint = restMessageFn.getDefaultEndpoint();
                 }
                 else {
-                    (0, console_1.error)("RESTMessageFunctionTemplate not found for " + name + "." + methodName);
+                    (0, console_1.error)("RESTMessageFunctionTemplate not found for " +
+                        name +
+                        "." +
+                        methodName);
                 }
             }
             else {
@@ -152,11 +86,83 @@ class MockRESTMessageV2 {
             }
         }
     }
+    getRequestHeader(headerName) {
+        if (headerName) {
+            let header = this._headers.find((header) => header.name === headerName);
+            if (header)
+                return header.value;
+        }
+        return "";
+    }
+    getRequestHeaders() {
+        return this._headers;
+    }
+    getRequestBody() {
+        return this._restMessageBody;
+    }
+    setRequestHeader(name, value) {
+        this._headers.push({ name: name, value: value });
+    }
+    setStringParameter(name, value) {
+        this._parameters.push({ name: name, value: value });
+    }
     // setStringParameterNoEscape =  jest.fn().mockImplementation((name:string, value:string) => {
     //     this._parameters.push({name: name, value: value});
     // });
     setStringParameterNoEscape(name, value) {
         this._parameters.push({ name: name, value: value });
+    }
+    getEndpoint() {
+        return this._endpoint;
+    }
+    setMIDServer(value) {
+        this.mockProperties["mid_server"] = value;
+    }
+    execute() {
+        // Generate a body value based on the deployMutation string
+        let body = this._bodyTemplate;
+        this._parameters.forEach((param) => {
+            if (body)
+                body = body.replace("\\${" + param.name + "}", param.value);
+            this._headers.forEach((header) => {
+                header.value = header.value.replace("${" + param.name + "}", param.value);
+            });
+            if (this._endpoint)
+                this._endpoint = this._endpoint.replace("${" + param.name + "}", param.value);
+        });
+        this._restMessageBody = body;
+        let response = new MockRESTResponseV2(this);
+        return response;
+    }
+    executeAsync() {
+        let body = this._bodyTemplate;
+        this._parameters.forEach((param) => {
+            if (body)
+                body = body.replace("\\${" + param.name + "}", param.value);
+            this._headers.forEach((header) => {
+                header.value = header.value.replace("${" + param.name + "}", param.value);
+            });
+            if (this._endpoint)
+                this._endpoint = this._endpoint.replace("${" + param.name + "}", param.value);
+        });
+        this._restMessageBody = body;
+        let response = new MockRESTResponseV2(this);
+        return response;
+    }
+    setHttpTimeout(timeout) {
+        this.mockProperties["http_timeout"] = timeout.toString();
+    }
+    setEccParameter(param, value) {
+        this.mockEccParams[param] = value;
+    }
+    setHttpMethod(method) {
+        this.mockProperties["http_method"] = method;
+    }
+    setEndpoint(endpoint) {
+        this._endpoint = endpoint;
+    }
+    setRequestBody(body) {
+        this._restMessageBody = body;
     }
     getMockProperties() {
         return this.mockProperties;
@@ -208,7 +214,7 @@ class RESTMessageFunctionTemplate {
         this._templateBody = value;
     }
     constructor(methodName, templateBody) {
-        this._defaultEndpoint = '${tanium_module_api_url}/gateway/graphql';
+        this._defaultEndpoint = "${tanium_module_api_url}/gateway/graphql";
         this._methodName = methodName;
         this._templateBody = templateBody;
     }
@@ -244,7 +250,7 @@ class RESTDataStore {
         this._hasError = false;
         this._mockRequests = [];
         this._mockResponses = [];
-        this._mockResponseBody = '';
+        this._mockResponseBody = "";
         this._mockResponseCode = 200;
     }
     static getInstance() {

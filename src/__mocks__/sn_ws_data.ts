@@ -131,6 +131,7 @@ export class MockRESTResponseV2 {
         this._parameters.push({name: name, value: value});
     });
 
+
     getEndpoint = jest.fn().mockImplementation(() => {
         return this._endpoint;
     });

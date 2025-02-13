@@ -13,12 +13,13 @@
     "allowUmdGlobalAccess": true,
     "allowArbitraryExtensions": true,
     "skipDefaultLibCheck": true,
-    "outDir": "dist/src",
+    "outDir": "dist",
     "rootDir": "src",
     "declaration": true, // Generate declaration files
     "declarationMap": true, // Generate declaration maps
     "sourceMap": true, // Generate source maps
     "composite": true, // Enable project references
+    "emitDeclarationOnly": false, // Only emit declaration files
     "types": [
       "node",
       "jest",

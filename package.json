@@ -1,23 +1,27 @@
 {
   "name": "int-sn-mock",
   "version": "1.0.0",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "files": [
     "dist"
   ],
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "buildts": "npm run build-index-export && tsc -p ./ && tsc-alias",
+    "buildts": "npm run build-index-export && npx tsc -p ./ && npx tsc-alias",
     "build": "npm run buildts",
     "build-index-export": "npx ctix build --config ./.ctirc"
   },
   "author": "",
   "license": "MIT",
   "description": "",
-  "types": "./dist/src/index.d.ts",
-  "exports": {
-    ".": "./dist/src/index.js"
-  },
+ 
   "devDependencies": {
     
     "@types/jest": "^29.5.14",

@@ -218,6 +218,7 @@ export declare class MockGlideDateTime {
     set dateInstance(value: Date);
     constructor(dt?: string | number | null);
     getTime: jest.Mock<any, any, any>;
+    getDate: jest.Mock<any, any, any>;
     getNumericValue: jest.Mock<any, any, any>;
     getYearLocalTime: jest.Mock<number, [], any>;
     getMonthLocalTime: jest.Mock<number, [], any>;
@@ -227,6 +228,7 @@ export declare class MockGlideDateTime {
     getDayOfMonthUTC: jest.Mock<number, [], any>;
     addDays: jest.Mock<any, any, any>;
     addSeconds: jest.Mock<void, [val: number], any>;
+    add: jest.Mock<void, [val: number], any>;
     toString: jest.Mock<string, [], any>;
 }
 export declare function newMockGlideDateTime(dt?: string | number | null): GlideDateTime;
@@ -235,7 +237,7 @@ export declare class MockGlideTime {
     get dateInstance(): Date;
     set dateInstance(value: Date);
     constructor(dt: Date);
-    getByFormat: jest.Mock<string | number, [val: string], any>;
+    getByFormat: jest.Mock<string, [val: string], any>;
 }
 export declare function newMockGlideSystem(): MockGlideSystem;
 export declare const mockGs: MockGlideSystem;

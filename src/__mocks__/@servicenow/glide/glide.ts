@@ -548,11 +548,16 @@ export class MockGlideRecord {
     });
 
     getElement = jest.fn().mockImplementation((column: string) => {
+        let mockElement:MockGlideElement;
         if(  this.mockCurrent [column]){
             if(  this.mockCurrent [column] instanceof MockGlideElement){
-                return   this.mockCurrent [column];
+                mockElement = this.mockCurrent [column];
+            } else {
+                mockElement = new MockGlideElement(  this.mockCurrent [column]);
+                mockElement.setRefRecord(this.mockCurrent[column]);
             }
-            return new MockGlideElement(  this.mockCurrent [column])
+ 
+            return mockElement;
         } 
 
         return null;
@@ -834,6 +839,9 @@ export class MockGlideDateTime{
     getTime = jest.fn().mockImplementation(() => {
         return new MockGlideTime(this.dateInstance);
     });
+    getDate = jest.fn().mockImplementation(() => {
+        return new GlideDate(this.dateInstance);
+    });
     getNumericValue= jest.fn().mockImplementation(() => {
         return this.dateInstance.getTime();
     } )
@@ -846,6 +854,9 @@ export class MockGlideDateTime{
     addDays= jest.fn()
     addSeconds= jest.fn((val:number) => {
         this.dateInstance.setSeconds(this.dateInstance.getSeconds() + val);
+    })
+    add= jest.fn((val:number) => {
+        this.dateInstance.setTime(this.dateInstance.getTime() + val);
     })
     toString =  jest.fn(() => {
         // const zonedDate = toZonedTime(_dt, 'UTC');
@@ -882,21 +893,22 @@ export class MockGlideTime{
     }
 
     getByFormat =  jest.fn((val:string) => {
+        
         switch(val){
             case "yyyy-MM-dd HH:mm:ss":
-                return  this.dateInstance.toISOString();
+                return this.dateInstance.toISOString();
             case "yyyy":
-                return  this._dateInstance.getUTCFullYear();
+                return this._dateInstance.getUTCFullYear().toString();
             case "MM":
-                return  this._dateInstance.getUTCMonth() + 1;
+                return (this._dateInstance.getUTCMonth() + 1).toString().padStart(2, '0');
             case "dd":
-                return  this._dateInstance.getUTCDate();
+                return this._dateInstance.getUTCDate().toString().padStart(2, '0');
             case "HH":
-                return this.dateInstance.getUTCHours();
+                return this.dateInstance.getUTCHours().toString().padStart(2, '0');
             case "mm":
-                return this.dateInstance.getUTCMinutes();
+                return this.dateInstance.getUTCMinutes().toString().padStart(2, '0');
             case "ss":
-                return this.dateInstance.getUTCSeconds();   
+                return this.dateInstance.getUTCSeconds().toString().padStart(2, '0');
         }
     })
 }

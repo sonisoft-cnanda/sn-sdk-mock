@@ -14,9 +14,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./connection.js"), exports);
-__exportStar(require("./__mocks__/index.js"), exports);
-__exportStar(require("./cache/index.js"), exports);
-__exportStar(require("./common/index.js"), exports);
-__exportStar(require("./config/sn_js/index.js"), exports);
+__exportStar(require("./initSNRhinoEnvironment.js"), exports);
 //# sourceMappingURL=index.js.map

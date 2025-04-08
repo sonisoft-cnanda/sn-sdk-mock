@@ -16,6 +16,7 @@ var Class = {
   /* 
    * Old method left here for compatibility purposes. All future extension should use "extendsObject" method.
    */
+  //@ts-ignore
   Object.extend = function(destination, source) {
     for (var property in source) {
       destination[property] = source[property];
@@ -23,7 +24,10 @@ var Class = {
     return destination;
   }
   
+    //@ts-ignore
+
   Object.extendsObject = function(destination, source) {
+    //@ts-ignore
     destination = Object.clone(destination.prototype);
     
     for (var property in source) {
@@ -31,7 +35,7 @@ var Class = {
     }
     return destination;
   }
-  
+  //@ts-ignore
   Object.clone = function(obj) {
     var clone = Class.create();
       

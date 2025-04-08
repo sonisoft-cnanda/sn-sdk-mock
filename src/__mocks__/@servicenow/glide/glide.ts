@@ -18,6 +18,64 @@ export const MOCKED_PROPERTIES = {
 
 const originalModule = jest.requireActual("@servicenow/glide");
 
+export enum BRRunWhen {
+    BEFORE = 10,
+    AFTER = 20,
+    ASYNC = 30,
+}
+
+export class BusinessRuleRunType{
+
+    public insert:boolean;
+    public update:boolean;
+    public delete:boolean;
+    public query:boolean;
+
+}
+
+export class DataTableBusinessRule{
+    private _name: string;
+    public get name(): string {
+        return this._name;
+    }
+    public set name(value: string) {
+        this._name = value;
+    }
+
+    private _brMethod: Function;
+    public get method(): Function {
+        return this._brMethod;
+    }
+    public set method(value: Function) {
+        this._brMethod = value;
+    }
+
+    private _when:number;
+
+    public get when(): number {
+        return this._when;
+    }
+
+    public set when(value: number) {
+        this._when = value;
+    }
+
+    private _brType:BusinessRuleRunType;
+    public get type(): BusinessRuleRunType {
+        return this._brType;
+    }
+    public set type(value: BusinessRuleRunType) {
+        this._brType = value;
+    }
+
+    constructor(name:string, brWhen:BRRunWhen, type:BusinessRuleRunType, method:Function){
+        this._name = name;
+        this.method = method;
+        this._when = brWhen;
+        this._brType = type;
+    }    
+}
+
 export class InMemoryDataTable{
     private _rows: Record<string, any>[];
     public get rows(): Record<string, any>[] {
@@ -32,6 +90,16 @@ export class InMemoryDataTable{
     }
     public set tableName(value: string) {
         this._tableName = value;
+    }
+
+    private _businessRules: DataTableBusinessRule[] = [];
+
+    public get businessRules(): DataTableBusinessRule[] {
+        return this._businessRules;
+    }
+
+    public set businessRules(value: DataTableBusinessRule[]) {
+        this._businessRules = value;
     }
 
     constructor(name: string){
@@ -203,7 +271,9 @@ export class MockGlideSystem {
         return 'admin';
     });
 
-    public nil = jest.fn((value: unknown) => !value);
+    public nil(value: unknown) {
+        return !value;
+    }
 
     error=  jest.fn().mockImplementation((msg:string) => {
        error(msg);
@@ -225,6 +295,10 @@ export class MockGlideSystem {
     urlEncode = jest.fn().mockImplementation((value:string) => {
         return encodeURIComponent(value);
     });
+
+    include(name:string){
+        return "";
+    }
 
 }
 
@@ -248,17 +322,15 @@ export class MockGlideQueryCondition {
 
 
 export class MockGlideRecord {
-
     public _database: Database = Database.getInstance();
 
-    private _mockNew:any = {};
-    public get mockNew():any{
+    private _mockNew: any = {};
+    public get mockNew(): any {
         return this._mockNew;
     }
-    public set mockNew(value:any){
+    public set mockNew(value: any) {
         this._mockNew = value;
     }
-    
 
     private _tableName: string;
     private _mockQuery: unknown[];
@@ -270,14 +342,13 @@ export class MockGlideRecord {
     }
     private _mockCallCount: number;
     private _mockRecordCount: number;
-   // private _mockRecords: Record<string, any>[];
     private _mockCurrent: Record<string, any>;
     public get mockCurrent(): Record<string, any> {
         return this._mockCurrent;
     }
     public set mockCurrent(value: Record<string, any>) {
         this._mockCurrent = value;
-        if(this._mockCurrent){
+        if (this._mockCurrent) {
             this.initProperties();
         }
     }
@@ -296,11 +367,11 @@ export class MockGlideRecord {
         this._mockLimit = value;
     }
 
-    private _operation:string;
+    private _operation: string;
 
     private _data: any[];
     public get data(): any[] {
-        if(this._data === undefined || this._data === null ){
+        if (this._data === undefined || this._data === null) {
             this._data = [];
         }
         return this._data;
@@ -308,312 +379,279 @@ export class MockGlideRecord {
     public set data(value: any[]) {
         this._data = value;
     }
-    //private _currentRecord: number;
-    //private _properties: Record<string, any>;
 
     private _isNewRecord: boolean = false;
-    // public get isNewRecord(): boolean {
-    //     return this._isNewRecord;
-    // }
     public set newRecord(value: boolean) {
         this._isNewRecord = value;
     }
 
-    // private _sys_id: string = this.generateGUID(); ;
-    // public get sys_id(){
-    //     return this._sys_id;
-    // }
-
-    private _conditions:MockGlideQueryCondition[] = [];
-    public get conditions():MockGlideQueryCondition[]{
+    private _conditions: MockGlideQueryCondition[] = [];
+    public get conditions(): MockGlideQueryCondition[] {
         return this._conditions;
     }
-    public set conditions(value:MockGlideQueryCondition[]){
+    public set conditions(value: MockGlideQueryCondition[]) {
         this._conditions = value;
     }
 
     generateGUID() {
-        let guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-          let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-          return v.toString(16);
+        let guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
         });
         return guid;
-      }
+    }
 
     public constructor(tableName: string) {
         this._tableName = tableName;
         this._mockCallCount = 0;
         this._mockRecordCount = 1;
         this._mockQuery = [];
-        //this._mockRecords = [];
         this._mockCurrent = {};
         this._mockIndex = -1;
         this._data = [];
-        //this._currentRecord = -1;
-        //this._properties = {};
+        this._mockNew = {};
         this.initialize();
     }
 
-    initialize = jest.fn().mockImplementation(() => {
+    initialize() {
         this._isNewRecord = true;
         this.mockCurrent = this._mockNew;
         this._mockNew.sys_id = this.generateGUID();
-        //this._sys_id = this._mockNew.sys_id;
-    });
+    }
 
-    initProperties(){
-		
-		var elements = Object.getOwnPropertyNames(this._mockCurrent);
-		//gs.debug("Elements: " + elements.length);
-		for(var i=0; i < elements.length; i++){
-			var strElemName = elements[i]
-			//gs.debug("Defining property: " + strElemName);
-			this.defineProperty(strElemName);
-		}
-	}
+    initProperties() {
+        var elements = Object.getOwnPropertyNames(this._mockCurrent);
+        for (var i = 0; i < elements.length; i++) {
+            var strElemName = elements[i];
+            this.defineProperty(strElemName);
+        }
+    }
 
     defineProperty(prop) {
-		//This is basically the same thing SN does, the other properties need to be accessed via the getValue or _next type methods 
-		if(MockGlideRecord.prototype.hasOwnProperty(prop))
-			return;
-			
+        if (MockGlideRecord.prototype.hasOwnProperty(prop)) return;
+
         Object.defineProperty(this, prop, {
             get: () => {
-				//gs.debug("getter: " + prop);
-                if(this.isElementReferenceType(prop)){
+                if (this.isElementReferenceType(prop)) {
                     return this.getElement(prop);
-                }else
+                } else {
                     return this.getValue(prop);
+                }
             },
-              set: (value) => {
-				//gs.debug("setter: " + prop);
-                this.setValue(prop,value);
+            set: (value) => {
+                this.setValue(prop, value);
             },
             enumerable: true,
             configurable: true
         });
     }
 
-    isElementReferenceType(propName){
-        
-        var isRefType = false;
-        var isRef = Object.getPrototypeOf( this._mockCurrent[propName]) == MockGlideElement.prototype ? true : false;
-		return isRef;
+    isElementReferenceType(propName) {
+        var isRef = Object.getPrototypeOf(this._mockCurrent[propName]) == MockGlideElement.prototype ? true : false;
+        return isRef;
     }
 
-    initQueryGr(){
-       
+    initQueryGr() {
         this._mockCurrent = {};
-   
         this._isNewRecord = false;
-        //this.data.push({});
         this.mockIndex = -1;
-        //this._sys_id = this._mockCurrent.sys_id;
-        let dbTable:InMemoryDataTable = this._database.getTable(this._tableName);
-        if(dbTable){
+        let dbTable: InMemoryDataTable = this._database.getTable(this._tableName);
+        if (dbTable) {
             this.data = dbTable.getRows();
-            if(this.mockLimit){
-                this.data = this.data.slice(0,this.mockLimit);
+            if (this.mockLimit) {
+                this.data = this.data.slice(0, this.mockLimit);
             }
         }
     }
-    public operation(){
+
+    public operation() {
         return this._operation;
     }
 
-    public next = jest.fn().mockImplementation(() => {
+    public next() {
         this._mockIndex++;
         if (this._mockIndex >= this.data.length) {
             return false;
         }
-        this.mockCurrent = this.data[this.mockIndex];
+        this.mockCurrent = this.data[this._mockIndex];
         return true;
-    });
+    }
 
-    public get = jest.fn().mockImplementation((sysId: string) => {
+    public get(sysId: string) {
         this.initQueryGr();
-       log(sysId);
         this._isNewRecord = false;
-        log("Data length: " + this.data.length);
-        // if(this.data.length == 1){
-        //     log("Data length is 1");
-        //     this._mockCurrent = this.data[0];
-        //     this.mockIndex = 0;
-        //     return this._mockCurrent
-        // }
-
-        this.mockCurrent  = this.data.find((record) => record.sys_id === sysId);
-        if(this._mockCurrent){
-            this.mockIndex = this.data.indexOf(  this.mockCurrent );
+        this.mockCurrent = this.data.find((record) => record.sys_id === sysId);
+        if (this._mockCurrent) {
+            this.mockIndex = this.data.indexOf(this.mockCurrent);
         }
-        return   this.mockCurrent ;
-    });
+        return this.mockCurrent;
+    }
 
-    public isNewRecord = jest.fn().mockImplementation(() => {
+    public isNewRecord() {
         return this._isNewRecord;
-    });
+    }
 
-    public addEncodedQuery = jest.fn().mockImplementation((query:string) => {
+    public addEncodedQuery(query: string) {
         this._isNewRecord = false;
         this._mockQuery.push(query);
-    });
+    }
 
-    public addActiveQuery = jest.fn().mockImplementation((...args: any[]) => {
+    public addActiveQuery(...args: any[]) {
         this._isNewRecord = false;
-       let q:string = "active=true";
+        let q: string = "active=true";
         this._mockQuery.push(q);
-    });
+    }
 
-    public addNotNullQuery = jest.fn().mockImplementation((name:string) => {
+    public addNotNullQuery(name: string) {
         this._isNewRecord = false;
-         let q:string = `${name}!=NULL`;
+        let q: string = `${name}!=NULL`;
         this._mockQuery.push(q);
-    });
+    }
 
-    public addNullQuery = jest.fn().mockImplementation((fieldName: string) => {
+    public addNullQuery(fieldName: string) {
         this._isNewRecord = false;
         const condition = new MockGlideQueryCondition();
         condition.addCondition(fieldName, 'NULL', null);
         this._conditions.push(condition);
         return condition;
-    });
+    }
 
-
-    // addQuery = jest.fn().mockImplementation((...args: any[]) => {
-    //     this._isNewRecord = false;
-    //     let q = "";
-    //     if (args.length === 3 || args.length === 1) {
-    //         q = args.join('');
-    //     } else if (args.length == 2) {
-    //         q = args.join("=");
-    //     }
-    //     this._mockQuery.push(q);
-    // });
-
-    public addQuery = jest.fn().mockImplementation((name?: string, oper?: string, value?: any) => {
+    public addQuery(name?: string, oper?: string, value?: any) {
         this._isNewRecord = false;
         const condition = new MockGlideQueryCondition();
         condition.addCondition(name, oper, value);
         this._conditions.push(condition);
         return condition;
-    });
+    }
 
-    public query = jest.fn().mockImplementation(() => {
-         this.initQueryGr();
-      
-    });
+    public query() {
+        this.initQueryGr();
+    }
 
-    public deleteMultiple = jest.fn().mockImplementation(() => {
+    public deleteMultiple() {
         return this;
-    });
+    }
 
-    public insert = jest.fn().mockImplementation(() => {
-        if(this._mockNew){
-            let dbTable:InMemoryDataTable = this._database.addTable(this._tableName);
-            if(dbTable){
-                 this._operation = "insert"
+    public insert() {
+        if (this._mockNew) {
+            let dbTable: InMemoryDataTable = this._database.addTable(this._tableName);
+            if (dbTable) {
+                this.getBusinessRules(BRRunWhen.BEFORE).forEach((br) => {
+                    if (br.type.insert) {
+                        br.method.call(this, this);
+                    }
+                });
+
+                this._operation = "insert";
                 let id = this._mockNew.sys_id;
                 dbTable.addRow(this._mockNew);
                 this._mockNew = null;
                 this.get(id);
+
+                this.getBusinessRules(BRRunWhen.AFTER).forEach((br) => {
+                    if (br.type.insert) {
+                        br.method.call(this, this);
+                    }
+                });
                 return this.mockCurrent.sys_id;
             }
         }
-       
         return null;
+    }
 
-    });
+    private getBusinessRules(when:BRRunWhen) {
+        let dbTable: InMemoryDataTable = this._database.getTable(this._tableName);
+        if (dbTable) {
+            return dbTable.businessRules.filter((br) => br.when == when);
+        }
+        return [];
+    }
 
-    public update = jest.fn().mockImplementation(() => {
-        const record =   this.mockCurrent ;
+
+    public update() {
+        const record = this.mockCurrent;
         if (record) {
             record._mockUpdated = true;
         }
-        this._operation = "update"
+        this._operation = "update";
         return record.sys_id || 'mockSysId';
-    });
+    }
 
-    public setLimit = jest.fn().mockImplementation((limit: number) => {
+    public setLimit(limit: number) {
         this.mockLimit = limit;
-    });
+    }
 
-    setValue = jest.fn().mockImplementation((column: string, value: string) => {
-        this.mockCurrent [column] = value;
-        this[column] = new MockGlideElement(value); // hacky glideelement replacement for now
-        //this._properties[column] = value;
-    });
+    public setValue(column: string, value: string) {
+        this.mockCurrent[column] = value;
+        this[column] = new MockGlideElement(value);
+    }
 
-    getValue = jest.fn().mockImplementation((column: string) => {
-        return   this.mockCurrent [column] ?? null;
-    });
+    public getValue(column: string) {
+        return this.mockCurrent[column] ?? null;
+    }
 
-    getElement = jest.fn().mockImplementation((column: string) => {
-        let mockElement:MockGlideElement;
-        if(  this.mockCurrent [column]){
-            if(  this.mockCurrent [column] instanceof MockGlideElement){
-                mockElement = this.mockCurrent [column];
+    public getElement(column: string) {
+        let mockElement: MockGlideElement;
+        if (this.mockCurrent[column]) {
+            if (this.mockCurrent[column] instanceof MockGlideElement) {
+                mockElement = this.mockCurrent[column];
             } else {
-                mockElement = new MockGlideElement(  this.mockCurrent [column]);
+                mockElement = new MockGlideElement(this.mockCurrent[column]);
                 mockElement.setRefRecord(this.mockCurrent[column]);
             }
- 
             return mockElement;
-        } 
-
+        }
         return null;
-    });
+    }
 
-    getUniqueValue = jest.fn().mockImplementation(() => {
+    public getUniqueValue() {
         return this.getValue('sys_id');
-    });
+    }
 
-    isValidField = jest.fn().mockImplementation(() => {
+    public isValidField() {
         return true;
-    });
+    }
 
-    isValidRecord = jest.fn().mockImplementation(() => {
+    public isValidRecord() {
         return true;
-    });
+    }
 
-    isValid = jest.fn().mockImplementation(() => {
-       
+    public isValid() {
         return true;
-    });
+    }
 
-    getTableName = jest.fn().mockImplementation(() => {
+    public getTableName() {
         return this._tableName;
-    });
+    }
 
-    getRecordClassName = jest.fn().mockImplementation(() => {
+    public getRecordClassName() {
         return this._tableName;
-    });
+    }
 
-    getRowCount = jest.fn().mockImplementation(() => {
+    public getRowCount() {
         return this.data.length;
-    });
+    }
 
-    hasNext = jest.fn().mockImplementation(() => {
+    public hasNext() {
         return this.mockIndex < this._data.length - 1;
-    });
+    }
 
-    addRecord = jest.fn().mockImplementation((record: any) => {
+    public addRecord(record: any) {
         this.data.push(record);
-    });
+    }
 
-    reset = jest.fn().mockImplementation(() => {
+    public reset() {
         this.mockIndex = -1;
-    });
+    }
 
-    // Additional methods to manipulate mock data
-    setMockData = jest.fn().mockImplementation((data: any[]) => {
+    public setMockData(data: any[]) {
         this.data = data;
-    });
+    }
 
-    getMockData = jest.fn().mockImplementation(() => {
+    public getMockData() {
         return this._data;
-    });
+    }
 }
-
 export class MockGlideAggregate extends MockGlideRecord{
 
     private _groupBy:string = null;

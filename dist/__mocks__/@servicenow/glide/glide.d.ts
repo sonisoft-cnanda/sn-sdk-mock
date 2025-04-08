@@ -10,6 +10,32 @@ export declare const MOCKED_PROPERTIES: {
     'x_taniu_tan_core.Log Tanium Actions': string;
     'x_taniu_tan_core.default_deployment_duration_hrs': string;
 };
+export declare enum BRRunWhen {
+    BEFORE = 10,
+    AFTER = 20,
+    ASYNC = 30
+}
+export declare class BusinessRuleRunType {
+    insert: boolean;
+    update: boolean;
+    delete: boolean;
+    query: boolean;
+}
+export declare class DataTableBusinessRule {
+    private _name;
+    get name(): string;
+    set name(value: string);
+    private _brMethod;
+    get method(): Function;
+    set method(value: Function);
+    private _when;
+    get when(): number;
+    set when(value: number);
+    private _brType;
+    get type(): BusinessRuleRunType;
+    set type(value: BusinessRuleRunType);
+    constructor(name: string, brWhen: BRRunWhen, type: BusinessRuleRunType, method: Function);
+}
 export declare class InMemoryDataTable {
     private _rows;
     get rows(): Record<string, any>[];
@@ -17,6 +43,9 @@ export declare class InMemoryDataTable {
     private _tableName;
     get tableName(): string;
     set tableName(value: string);
+    private _businessRules;
+    get businessRules(): DataTableBusinessRule[];
+    set businessRules(value: DataTableBusinessRule[]);
     constructor(name: string);
     addRow(row: Record<string, any>): void;
     getRows(): Record<string, any>[];
@@ -66,13 +95,14 @@ export declare class MockGlideSystem {
     importXML: jest.Mock<any, any, any>;
     getUserName: jest.Mock<any, any, any>;
     getSystemId: jest.Mock<any, any, any>;
-    nil: jest.Mock<boolean, [value: unknown], any>;
+    nil(value: unknown): boolean;
     error: jest.Mock<any, any, any>;
     warn: jest.Mock<any, any, any>;
     debug: jest.Mock<any, any, any>;
     info: jest.Mock<any, any, any>;
     eventQueue: jest.Mock<any, any, any>;
     urlEncode: jest.Mock<any, any, any>;
+    include(name: string): string;
 }
 export declare class MockGlideQueryCondition {
     private conditions;
@@ -115,40 +145,41 @@ export declare class MockGlideRecord {
     set conditions(value: MockGlideQueryCondition[]);
     generateGUID(): string;
     constructor(tableName: string);
-    initialize: jest.Mock<any, any, any>;
+    initialize(): void;
     initProperties(): void;
     defineProperty(prop: any): void;
     isElementReferenceType(propName: any): boolean;
     initQueryGr(): void;
     operation(): string;
-    next: jest.Mock<any, any, any>;
-    get: jest.Mock<any, any, any>;
-    isNewRecord: jest.Mock<any, any, any>;
-    addEncodedQuery: jest.Mock<any, any, any>;
-    addActiveQuery: jest.Mock<any, any, any>;
-    addNotNullQuery: jest.Mock<any, any, any>;
-    addNullQuery: jest.Mock<any, any, any>;
-    addQuery: jest.Mock<any, any, any>;
-    query: jest.Mock<any, any, any>;
-    deleteMultiple: jest.Mock<any, any, any>;
-    insert: jest.Mock<any, any, any>;
-    update: jest.Mock<any, any, any>;
-    setLimit: jest.Mock<any, any, any>;
-    setValue: jest.Mock<any, any, any>;
-    getValue: jest.Mock<any, any, any>;
-    getElement: jest.Mock<any, any, any>;
-    getUniqueValue: jest.Mock<any, any, any>;
-    isValidField: jest.Mock<any, any, any>;
-    isValidRecord: jest.Mock<any, any, any>;
-    isValid: jest.Mock<any, any, any>;
-    getTableName: jest.Mock<any, any, any>;
-    getRecordClassName: jest.Mock<any, any, any>;
-    getRowCount: jest.Mock<any, any, any>;
-    hasNext: jest.Mock<any, any, any>;
-    addRecord: jest.Mock<any, any, any>;
-    reset: jest.Mock<any, any, any>;
-    setMockData: jest.Mock<any, any, any>;
-    getMockData: jest.Mock<any, any, any>;
+    next(): boolean;
+    get(sysId: string): Record<string, any>;
+    isNewRecord(): boolean;
+    addEncodedQuery(query: string): void;
+    addActiveQuery(...args: any[]): void;
+    addNotNullQuery(name: string): void;
+    addNullQuery(fieldName: string): MockGlideQueryCondition;
+    addQuery(name?: string, oper?: string, value?: any): MockGlideQueryCondition;
+    query(): void;
+    deleteMultiple(): this;
+    insert(): any;
+    private getBusinessRules;
+    update(): any;
+    setLimit(limit: number): void;
+    setValue(column: string, value: string): void;
+    getValue(column: string): any;
+    getElement(column: string): MockGlideElement;
+    getUniqueValue(): any;
+    isValidField(): boolean;
+    isValidRecord(): boolean;
+    isValid(): boolean;
+    getTableName(): string;
+    getRecordClassName(): string;
+    getRowCount(): number;
+    hasNext(): boolean;
+    addRecord(record: any): void;
+    reset(): void;
+    setMockData(data: any[]): void;
+    getMockData(): any[];
 }
 export declare class MockGlideAggregate extends MockGlideRecord {
     private _groupBy;

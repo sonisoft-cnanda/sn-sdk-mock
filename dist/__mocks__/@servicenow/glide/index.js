@@ -15,5 +15,4 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./glide.js"), exports);
-__exportStar(require("./x_taniu_tan_core/index.js"), exports);
 //# sourceMappingURL=index.js.map

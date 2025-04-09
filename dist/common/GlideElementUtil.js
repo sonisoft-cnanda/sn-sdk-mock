@@ -1,14 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GlideElementUtil = void 0;
-const __mocks__1 = require("../__mocks__/index.js");
+const __1 = require("../index.js");
 class GlideElementUtil {
     static createGlideElementReference(elementName, refTable, refObject) {
-        const gr = new __mocks__1.MockGlideRecord(refTable);
+        const gr = new __1.MockGlideRecord(refTable);
         gr.setMockData(refObject);
-        const ge = new __mocks__1.MockGlideElement(elementName);
+        const ge = new __1.MockGlideElement(elementName);
         ge.setRefRecord(gr);
         ge.setRefRecordTableName(refTable);
+        return ge;
+    }
+    static createGlideElementReferenceForGlideRecord(elementName, record) {
+        const ge = new __1.MockGlideElement(elementName);
+        ge.setRefRecord(record);
+        ge.setRefRecordTableName(record.getTableName());
         return ge;
     }
 }

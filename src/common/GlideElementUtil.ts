@@ -1,4 +1,5 @@
-import { MockGlideElement, MockGlideRecord } from "../__mocks__";
+import { GlideRecord } from "@servicenow/glide";
+import { MockGlideElement, MockGlideRecord } from "../";
 
 
 export class GlideElementUtil {
@@ -9,11 +10,17 @@ export class GlideElementUtil {
         
         const ge = new MockGlideElement(elementName);
 
-        ge.setRefRecord(gr);
+        ge.setRefRecord(gr as unknown as GlideRecord);
         ge.setRefRecordTableName(refTable);
 
+        return ge;
 
-        
+    }
+
+    public static createGlideElementReferenceForGlideRecord(elementName:string, record:MockGlideRecord) : MockGlideElement{
+        const ge = new MockGlideElement(elementName);
+        ge.setRefRecord(record as unknown as GlideRecord);
+        ge.setRefRecordTableName(record.getTableName());
 
         return ge;
 

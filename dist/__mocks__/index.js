@@ -17,5 +17,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./MockVulnerabilityIntegrationBase.js"), exports);
 __exportStar(require("./MockVulnerabilityIntegrationUtils.js"), exports);
 __exportStar(require("./sn_ws_data.js"), exports);
-__exportStar(require("./@servicenow/glide/index.js"), exports);
+__exportStar(require("../@servicenow/glide/index.js"), exports);
 //# sourceMappingURL=index.js.map

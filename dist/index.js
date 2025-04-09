@@ -15,8 +15,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./connection.js"), exports);
-__exportStar(require("./__mocks__/index.js"), exports);
+__exportStar(require("./@servicenow/glide/index.js"), exports);
 __exportStar(require("./cache/index.js"), exports);
 __exportStar(require("./common/index.js"), exports);
 __exportStar(require("./config/sn_js/index.js"), exports);
+__exportStar(require("./data/index.js"), exports);
 //# sourceMappingURL=index.js.map

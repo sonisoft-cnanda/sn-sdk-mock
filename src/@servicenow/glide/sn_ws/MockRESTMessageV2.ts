@@ -1,10 +1,10 @@
-import { RESTDataStore } from "../../../data/sn_ws/RESTDataStore";
+import { RestDataStore } from "../../../data/sn_ws/RestDataStore";
 import { log, error, debug, warn } from "console";
-import { MockRESTResponseV2 } from "./MockRESTResponseV2";
+import { MockRestResponseV2 } from "./MockRestResponseV2";
 
 
 
-export class MockRESTMessageV2 {
+export class MockRestMessageV2 {
     private mockProperties: Record<string, string>;
     private mockEccParams: Record<string, string>;
     private mockParams: Record<string, string>;
@@ -57,7 +57,7 @@ export class MockRESTMessageV2 {
     }
   
     constructor(name?: string, methodName?: string) {
-      RESTDataStore.getInstance().addMockRequest(this);
+      RestDataStore.getInstance().addMockRequest(this);
       this.mockProperties = {};
       this.mockEccParams = {};
       this.mockParams = {};
@@ -71,7 +71,7 @@ export class MockRESTMessageV2 {
   
       if (name && methodName) {
         let restMessage =
-          RESTDataStore.getInstance().getRESTMessageTemplate(name);
+        RestDataStore.getInstance().getRESTMessageTemplate(name);
   
         if (restMessage) {
           debug(
@@ -140,7 +140,7 @@ export class MockRESTMessageV2 {
       this.mockProperties["mid_server"] = value;
     }
   
-    public execute(): MockRESTResponseV2 {
+    public execute(): MockRestResponseV2 {
       // Generate a body value based on the deployMutation string
       let body = this._bodyTemplate;
   
@@ -161,12 +161,12 @@ export class MockRESTMessageV2 {
       });
       this._restMessageBody = body;
   
-      let response = new MockRESTResponseV2(this);
+      let response = new MockRestResponseV2(this);
   
       return response;
     }
   
-    public executeAsync(): MockRESTResponseV2 {
+    public executeAsync(): MockRestResponseV2 {
       let body = this._bodyTemplate;
   
       this._parameters.forEach((param) => {
@@ -186,7 +186,7 @@ export class MockRESTMessageV2 {
       });
       this._restMessageBody = body;
   
-      let response = new MockRESTResponseV2(this);
+      let response = new MockRestResponseV2(this);
   
       return response;
     }

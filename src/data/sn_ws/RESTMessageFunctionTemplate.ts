@@ -1,4 +1,4 @@
-export class RESTMessageFunctionTemplate {
+export class RestMessageFunctionTemplate {
     private _methodName: string;
     public get methodName(): string {
       return this._methodName;

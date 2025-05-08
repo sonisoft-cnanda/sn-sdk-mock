@@ -1,12 +1,13 @@
-import { MockRESTMessageV2 } from "../../@servicenow/glide/sn_ws/MockRESTMessageV2";
-import { MockRESTResponseV2 } from "../../@servicenow/glide/sn_ws/MockRESTResponseV2";
-import { RESTMessageTemplate } from "./RESTMessageTemplate";
+import { MockRestMessageV2 } from "../../@servicenow/glide/sn_ws/MockRestMessageV2";
+import { MockRestResponseV2 } from "../../@servicenow/glide/sn_ws/MockRestResponseV2";
+import { RestMessageTemplate } from "./RestMessageTemplate";
 
-export class RESTDataStore {
-    private static _instance: RESTDataStore;
+
+export class RestDataStore {
+    private static _instance: RestDataStore;
   
-    private _mockRequests: MockRESTMessageV2[];
-    private _mockResponses: MockRESTResponseV2[];
+    private _mockRequests: MockRestMessageV2[];
+    private _mockResponses: MockRestResponseV2[];
     private _mockResponseBody: string;
     public get mockResponseBody(): string {
       return this._mockResponseBody;
@@ -22,7 +23,7 @@ export class RESTDataStore {
       this._mockResponseCode = value;
     }
   
-    private _restMessageTemplates: Record<string, RESTMessageTemplate> = {};
+    private _restMessageTemplates: Record<string, RestMessageTemplate> = {};
   
     private _hasError: boolean = false;
     public get hasError(): boolean {
@@ -39,34 +40,34 @@ export class RESTDataStore {
       this._mockResponseCode = 200;
     }
   
-    public static getInstance(): RESTDataStore {
+    public static getInstance(): RestDataStore {
       if (!this._instance) {
-        this._instance = new RESTDataStore();
+        this._instance = new RestDataStore();
       }
       return this._instance;
     }
   
-    public addRESTMessageTemplate(template: RESTMessageTemplate) {
+    public addRESTMessageTemplate(template: RestMessageTemplate) {
       this._restMessageTemplates[template.messageName] = template;
     }
   
-    public getRESTMessageTemplate(messageName: string): RESTMessageTemplate {
+    public getRESTMessageTemplate(messageName: string): RestMessageTemplate {
       return this._restMessageTemplates[messageName];
     }
   
-    public addMockRequest(request: MockRESTMessageV2) {
+    public addMockRequest(request: MockRestMessageV2) {
       this._mockRequests.push(request);
     }
   
-    public getMockRequests(): MockRESTMessageV2[] {
+    public getMockRequests(): MockRestMessageV2[] {
       return this._mockRequests;
     }
   
-    public addMockResponse(response: MockRESTResponseV2) {
+    public addMockResponse(response: MockRestResponseV2) {
       this._mockResponses.push(response);
     }
   
-    public getMockResponses(): MockRESTResponseV2[] {
+    public getMockResponses(): MockRestResponseV2[] {
       return this._mockResponses;
     }
   

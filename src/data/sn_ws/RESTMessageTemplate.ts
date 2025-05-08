@@ -1,6 +1,6 @@
-import { RESTMessageFunctionTemplate } from "./RESTMessageFunctionTemplate";
+import { RestMessageFunctionTemplate } from "./RestMessageFunctionTemplate";
 
-export class RESTMessageTemplate {
+export class RestMessageTemplate {
     private _messageName: string;
     public get messageName(): string {
       return this._messageName;
@@ -9,11 +9,11 @@ export class RESTMessageTemplate {
       this._messageName = value;
     }
   
-    private _methods: Record<string, RESTMessageFunctionTemplate> = {};
-    public get methods(): Record<string, RESTMessageFunctionTemplate> {
+    private _methods: Record<string, RestMessageFunctionTemplate> = {};
+    public get methods(): Record<string, RestMessageFunctionTemplate> {
       return this._methods;
     }
-    public set methods(value: Record<string, RESTMessageFunctionTemplate>) {
+    public set methods(value: Record<string, RestMessageFunctionTemplate>) {
       this._methods = value;
     }
   
@@ -22,7 +22,7 @@ export class RESTMessageTemplate {
     }
   
     public addMethod(methodName: string, templateBody: string) {
-      this._methods[methodName] = new RESTMessageFunctionTemplate(
+      this._methods[methodName] = new RestMessageFunctionTemplate(
         methodName,
         templateBody
       );

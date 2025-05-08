@@ -1,1 +1,0 @@
-{"version":3,"file":"PropertyDB.d.ts","sourceRoot":"","sources":["../../src/data/PropertyDB.ts"],"names":[],"mappings":"AAEA,qBAAa,UAAU;IACnB,OAAO,CAAC,MAAM,CAAC,SAAS,CAAY;WACtB,WAAW,IAAG,UAAU;IAOrC,OAAO,CAAC,gBAAgB,CAAe;;IAOjC,WAAW,CAAC,YAAY,EAAE,MAAM,GAAG,GAAG;IAItC,WAAW,CAAC,YAAY,EAAE,MAAM,EAAE,KAAK,EAAE,MAAM,GAAG,IAAI;CAGhE"}

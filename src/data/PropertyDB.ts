@@ -1,12 +1,12 @@
 import { PropertyTable } from "./PropertyTable";
 
-export class PropertyDB{
-    private static _instance:PropertyDB;
-    public static getInstance():PropertyDB{
-          if(!PropertyDB._instance){
-            PropertyDB._instance = new PropertyDB();
+export class PropertyDb{
+    private static _instance:PropertyDb;
+    public static getInstance():PropertyDb{
+          if(!PropertyDb._instance){
+            PropertyDb._instance = new PropertyDb();
           }
-          return PropertyDB._instance;
+          return PropertyDb._instance;
      }
 
      private _propertiesTable:PropertyTable;

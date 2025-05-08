@@ -1,1 +1,0 @@
-{"version":3,"file":"MockGlideAggregate.d.ts","sourceRoot":"","sources":["../../../src/@servicenow/glide/MockGlideAggregate.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,eAAe,EAAE,MAAM,mBAAmB,CAAC;AAEpD,qBAAa,kBAAmB,SAAQ,eAAe;IAEnD,OAAO,CAAC,QAAQ,CAAe;IAC/B,IAAW,UAAU,IAAG,MAAM,CAE7B;IACD,IAAW,UAAU,CAAC,KAAK,EAAC,MAAM,EAEjC;IAED,OAAO,2BAGJ;CACN"}

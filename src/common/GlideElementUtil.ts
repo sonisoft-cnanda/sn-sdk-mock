@@ -1,6 +1,6 @@
 import { GlideRecord } from "@servicenow/glide";
-import { MockGlideElement, MockGlideRecord } from "../";
-
+import { MockGlideRecord } from "../@servicenow/glide/MockGlideRecord";
+import { MockGlideElement } from "../@servicenow/glide/MockGlideElement";
 
 export class GlideElementUtil {
 

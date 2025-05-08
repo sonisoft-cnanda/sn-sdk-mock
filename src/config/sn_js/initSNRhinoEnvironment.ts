@@ -3,7 +3,7 @@ const { MockGlideRecord, MockGlideSystem, MockGlideElement, MockGlideDateTime, M
 const Class = require('./PrototypeServer.js');
 
 
-export function initSNRhinoEnvironment(){
+export function initSnRhinoEnvironment(){
 
     global.Class =Class;
 

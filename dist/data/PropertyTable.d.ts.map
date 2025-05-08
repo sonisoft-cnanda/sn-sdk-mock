@@ -1,1 +1,0 @@
-{"version":3,"file":"PropertyTable.d.ts","sourceRoot":"","sources":["../../src/data/PropertyTable.ts"],"names":[],"mappings":"AAAA,qBAAa,aAAa;IACtB,OAAO,CAAC,WAAW,CAAsB;;IAMlC,WAAW,CAAC,YAAY,EAAE,MAAM,GAAG,GAAG;IAItC,WAAW,CAAC,YAAY,EAAE,MAAM,EAAE,KAAK,EAAE,MAAM,GAAG,IAAI;CAGhE"}

@@ -27,11 +27,12 @@
   "author": "",
   "license": "MIT",
   "description": "",
- 
   "devDependencies": {
-    
+    "@servicenow/eslint-plugin-sdk-app-plugin": "3.0.1",
+    "@servicenow/glide": "^26.0.1",
     "@types/jest": "^29.5.14",
     "ctix": "^2.6.4",
+    "date-fns": "^4.1.0",
     "eslint": "^8.50.0",
     "graphql": "^16.9.0",
     "graphql-tag": "^2.12.6",
@@ -48,13 +49,5 @@
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.6.0",
     "typescript-transform-paths": "^3.5.1"
-  },
-
-    "dependencies": {
-      "@servicenow/eslint-plugin-sdk-app-plugin": "2.0.1",
-      "@servicenow/glide": "github:tanium-cnanda/servicenow-glide",
-      "@servicenow/sdk-build": "^2.0.1",
-        "date-fns": "^4.1.0",
-        "date-fns-tz": "^3.2.0"
-    }
+  }
 }

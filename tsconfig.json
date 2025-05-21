@@ -2,7 +2,7 @@
     "compilerOptions": {
       "strict": false,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false,
     "target": "ES2021",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
@@ -14,7 +14,7 @@
     "allowArbitraryExtensions": true,
     "skipDefaultLibCheck": true,
     "outDir": "dist",
-    "rootDir": "src",
+    "rootDir": "./src",
     "declaration": true, // Generate declaration files
     "declarationMap": true, // Generate declaration maps
     "sourceMap": true, // Generate source maps
@@ -45,8 +45,9 @@
     },
     "esm": false
   },
-   "include": ["src/**/*.ts","types/*.ts"],
+   "include": ["src/**/*.ts","types/*.ts", "index.ts"],
     "exclude": [
-      "src/fluent/**"
+      "src/fluent/**",
+      "example/**",
     ]
   }

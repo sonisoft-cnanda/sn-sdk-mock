@@ -7,13 +7,15 @@
         "build": "now-sdk build",
         "deploy": "now-sdk install",
         "transform": "now-sdk transform",
-        "types": "now-sdk dependencies"
+        "types": "now-sdk dependencies",
+        "test": "npx jest --config jest.config.ts"
     },
     "devDependencies": {
         "@servicenow/eslint-plugin-sdk-app-plugin": "3.0.1",
-        "@servicenow/glide": "26.0.1",
+        "@servicenow/glide": "git://github.com/sonisoft-cnanda/servicenow-glide",
         "@servicenow/sdk": "3.0.1",
         "eslint": "8.50.0",
-        "sn-sdk-mock": "^1.0.1"
+        "sn-sdk-mock": "file:../../.",
+        "ts-jest": "^29.3.4"
     }
 }

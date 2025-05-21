@@ -1,0 +1,1 @@
+{"version":3,"file":"MockGlideTime.d.ts","sourceRoot":"","sources":["../../../src/@servicenow/glide/MockGlideTime.ts"],"names":[],"mappings":"AAAA,qBAAa,aAAa;IAEtB,OAAO,CAAC,aAAa,CAAO;IAC5B,IAAW,YAAY,IAAI,IAAI,CAE9B;IACD,IAAW,YAAY,CAAC,KAAK,EAAE,IAAI,EAElC;gBAEkB,EAAE,EAAC,IAAI;IAI1B,WAAW,wCAkBT;CACL"}

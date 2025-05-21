@@ -1,0 +1,44 @@
+import { MockRestResponseV2 } from "./MockRestResponseV2.js";
+export declare class MockRestMessageV2 {
+    private mockProperties;
+    private mockEccParams;
+    private mockParams;
+    private _name;
+    get name(): string | null;
+    set name(value: string | null);
+    private _methodName;
+    get methodName(): string | null;
+    set methodName(value: string | null);
+    private _endpoint;
+    get endpoint(): string;
+    set endpoint(value: string);
+    private _restMessageBody;
+    private _parameters;
+    get parameters(): any[];
+    set parameters(value: any[]);
+    private _headers;
+    private _bodyTemplate;
+    get bodyTemplate(): string;
+    set bodyTemplate(value: string);
+    constructor(name?: string, methodName?: string);
+    getRequestHeader(headerName?: string): string;
+    getRequestHeaders(): Record<any, any>;
+    getRequestBody(): string | null;
+    setRequestHeader(name: string, value: string): void;
+    setStringParameter(name: string, value: string): void;
+    setStringParameterNoEscape(name: string, value: string): void;
+    getEndpoint(): string;
+    setMIDServer(value: string): void;
+    execute(): MockRestResponseV2;
+    executeAsync(): MockRestResponseV2;
+    setHttpTimeout(timeout: number): void;
+    setEccParameter(param: string, value: string): void;
+    setHttpMethod(method: string): void;
+    setEndpoint(endpoint: string): void;
+    setRequestBody(body: string): void;
+    getMockProperties(): Record<string, string>;
+    getMockEccParams(): Record<string, string>;
+    getMockParams(): Record<string, string>;
+    getMockRequestBody(): string | null;
+}
+//# sourceMappingURL=MockRestMessageV2.d.ts.map

@@ -1,24 +1,28 @@
-const { MockGlideRecord, MockGlideSystem, Database, DataTableBusinessRule, BRRunWhen, BusinessRuleRunType, initSNRhinoEnvironment, BusinessRuleRunWhen } = require('sn-sdk-mock');
+const { initSnRhinoEnvironment, initSNTestEnvironment } = require('sn-sdk-mock');
+initSnRhinoEnvironment();
+initSNTestEnvironment();
+
+const { MockGlideRecord, MockGlideSystem, Database, DataTableBusinessRule, BRRunWhen, BusinessRuleRunType, BusinessRuleRunWhen } = require('sn-sdk-mock');
 const { expect, it, describe, beforeEach } = require('@jest/globals');
 
-initSNRhinoEnvironment();
 
-const IncidentHelper = require('../src/includes/script_include/IncidentHelper.server.js');
+
+const IncidentHelper = require('../src/includes/sys_script_include/IncidentHelper.server.js');
 
 
 jest.mock("@servicenow/glide", () => ({ 
     GlideRecord: jest.fn().mockImplementation(() => {
         return new MockGlideRecord();
     }),
-    // GlideSystem: jest.fn().mockImplementation(() => {
-    //     let mockGs = jest.requireActual('sn-sdk-mock').mockGs;
-    //     return mockGs;
-    // }),
-    // gs: jest.fn().mockImplementation(() => {
-    //     let mockGs = jest.requireActual('sn-sdk-mock').mockGs;
-    //     return mockGs;
+    GlideSystem: jest.fn().mockImplementation(() => {
+        let mockGs = jest.requireActual('sn-sdk-mock').mockGs;
+        return mockGs;
+    }),
+    gs: jest.fn().mockImplementation(() => {
+        let mockGs = jest.requireActual('sn-sdk-mock').mockGs;
+        return mockGs;
     
-    // }),
+    }),
 }));
 
 describe("IncidentUtil", () => {
@@ -51,6 +55,12 @@ describe("IncidentUtil", () => {
 
         expect(insertQuery).toHaveBeenCalled();
         expect(incidentSysId).toBeDefined();
-        expect(tblIncident.getRow(incidentSysId).short_description).toBe('Test Incident');
+          let rows = tblIncident.getRows();
+        expect(rows.length).toBe(1);
+        var gr = new GlideRecord('incident');
+        gr.get(incidentSysId);
+      
+        expect(gr.short_description).toBe('Test Incident');
+        //expect(tblIncident.getRow(incidentSysId).short_description).toBe('Test Incident');
     });
 });

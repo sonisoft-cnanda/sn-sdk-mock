@@ -4,9 +4,9 @@
   "reasonerStream": "stderr",
   "options": [
     {
-      "mode": "bundle",
+      "mode": "create",
       "project": "./tsconfig.json",
-      "startFrom": "./",
+      "startFrom": "./src",
       "exclude": [
         "assets",
         "types"

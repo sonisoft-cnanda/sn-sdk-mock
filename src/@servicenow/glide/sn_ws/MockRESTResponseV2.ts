@@ -1,4 +1,4 @@
-import { RestDataStore } from "../../../data/sn_ws/RESTDataStore";
+import { RestDataStore } from "../../../data/sn_ws/RestDataStore";
 import { MockRestMessageV2 } from "./MockRestMessageV2";
 
 export class MockRestResponseV2 {

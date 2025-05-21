@@ -6,7 +6,6 @@ IncidentHelper.prototype = {
 
         createIncident: function(incidentData) {
             var incident = new GlideRecord('incident');
-            incident.initialize();
             incident.short_description = incidentData.short_description;
             incident.description = incidentData.description;
             incident.caller_id = incidentData.caller_id;

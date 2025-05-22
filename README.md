@@ -21,7 +21,9 @@ The @servicenow/glide library can be referenced directly from github from a pack
 
 ```
 const { initSnRhinoEnvironment, initSNTestEnvironment } = require('sn-sdk-mock');
+//Initializes the global objects with many of the default objects, such as GlideSystem, gs, GlideRecord. This should be expanded in the future.
 initSnRhinoEnvironment();
+//Initializes the test environment based on your script location. This uses the @types/servicenow/glide.server.d.ts that is created in a project from running now-sdk dependencies to load the list of tables and table columns. This is used when a new GlideRecord (MockGlideRecord) is created in order to set the properties list on the MockGlideRecord object.
 initSNTestEnvironment();
 
 const { MockGlideRecord, MockGlideSystem, Database, DataTableBusinessRule, BRRunWhen, BusinessRuleRunType, BusinessRuleRunWhen } = require('sn-sdk-mock');

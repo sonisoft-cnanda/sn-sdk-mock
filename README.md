@@ -5,6 +5,15 @@ This library provides mocked versions of ServiceNow Glide API's that can be used
 
 The library is used to be able to test ServiceNow JS Modules and Script Includes on your local computer during development or in a CICD pipeline.
 
+### Note:
+This library requires you to reference the @servicenow/glide library that is available on github vs the one on NPM for the time being. The reason for this is that you will most likely see errors, even when mocking objects, that objects are not defined.  This is due to the original @servicenow/glide library only containing type definitions and no implementations.  The github version has stubbed out implementations of those objects which allows mocking to work properly.
+
+@servicenow/glide Github: https://github.com/sonisoft-cnanda/servicenow-glide
+
+The @servicenow/glide library can be referenced directly from github from a package.json in devDependencies:
+
+"@servicenow/glide": "git://github.com/sonisoft-cnanda/servicenow-glide",
+
 ## Usage:
 
 ### Script Includes

@@ -1,2 +1,2 @@
-export * from './MockRestMessageV2';
-export * from './MockRestResponseV2';
+export * from './MockRESTMessageV2';
+export * from './MockRESTResponseV2';

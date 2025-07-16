@@ -1,7 +1,7 @@
 import { gs } from "@servicenow/glide";
 
 
-export class DbUtil {
+export class DBUtil {
 
     public static tryParseInt(value: string, out: (isParsed:boolean, value?: number) => void): void {
        let parseSuccessful:boolean = false;

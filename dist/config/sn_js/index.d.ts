@@ -1,2 +1,2 @@
-export * from './initSnRhinoEnvironment.js';
+export * from './initSNRhinoEnvironment.js';
 //# sourceMappingURL=index.d.ts.map

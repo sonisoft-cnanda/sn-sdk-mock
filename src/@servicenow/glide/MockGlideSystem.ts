@@ -1,7 +1,7 @@
 import { GlideRecord } from "@servicenow/glide";
 import { log, error, debug, warn } from "console";
 import { Database } from "../../data/Database";
-import { PropertyDb } from "../../data/PropertyDb";
+import { PropertyDB } from "../../data/PropertyDB";
 import { InMemoryDataTable } from "../../data/InMemoryDataTable";
 
 
@@ -19,11 +19,11 @@ export class MockGlideSystem {
 
 
     public getProperty(propertyName: string): any {
-        return PropertyDb.getInstance().getProperty(propertyName);
+        return PropertyDB.getInstance().getProperty(propertyName);
     }
 
     public setProperty(propertyName: string, value: string): void {
-        PropertyDb.getInstance().setProperty(propertyName, value);
+        PropertyDB.getInstance().setProperty(propertyName, value);
     }
 
     public log(message: string): void {

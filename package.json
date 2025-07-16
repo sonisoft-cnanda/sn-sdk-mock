@@ -30,10 +30,10 @@
   "description": "",
   "devDependencies": {
     "@servicenow/eslint-plugin-sdk-app-plugin": "3.0.1",
-      "@servicenow/glide": "git://github.com/sonisoft-cnanda/servicenow-glide",
+    "@servicenow/glide": "git://github.com/sonisoft-cnanda/servicenow-glide",
     "@types/jest": "^29.5.14",
     "app-root-path": "^3.1.0",
-    "ctix": "^2.6.4",
+    "ctix": "2.6.4",
     "date-fns": "^4.1.0",
     "eslint": "^8.50.0",
     "graphql": "^16.9.0",

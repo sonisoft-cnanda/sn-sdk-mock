@@ -1,4 +1,4 @@
-export * from './RestDataStore.js';
-export * from './RestMessageFunctionTemplate.js';
-export * from './RestMessageTemplate.js';
+export * from './RESTDataStore.js';
+export * from './RESTMessageFunctionTemplate.js';
+export * from './RESTMessageTemplate.js';
 //# sourceMappingURL=index.d.ts.map

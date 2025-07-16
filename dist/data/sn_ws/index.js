@@ -14,7 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./RestDataStore.js"), exports);
-__exportStar(require("./RestMessageFunctionTemplate.js"), exports);
-__exportStar(require("./RestMessageTemplate.js"), exports);
+__exportStar(require("./RESTDataStore.js"), exports);
+__exportStar(require("./RESTMessageFunctionTemplate.js"), exports);
+__exportStar(require("./RESTMessageTemplate.js"), exports);
 //# sourceMappingURL=index.js.map

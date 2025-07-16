@@ -2,7 +2,7 @@ import { GlideDateTime } from "@servicenow/glide";
 import { MockGlideDate } from "./MockGlideDate";
 import { MockGlideTime } from "./MockGlideTime";
 import { parseISO } from "date-fns/parseISO";
-import { DbUtil } from "../../common/DbUtil";
+import { DBUtil } from "../../common/DBUtil";
 
 export class MockGlideDateTime{
 
@@ -19,7 +19,7 @@ export class MockGlideDateTime{
         if(dt == undefined || !dt){
             this._dateInstance = new Date(Date.now());
         }else{
-            DbUtil.tryParseInt(dt?.toString(), (isParsed:boolean, value:number | undefined) => {
+            DBUtil.tryParseInt(dt?.toString(), (isParsed:boolean, value:number | undefined) => {
                 if(isParsed != undefined && isParsed){
                     this._dateInstance = new Date();
                     this._dateInstance.setUTCMilliseconds(value as unknown as number);

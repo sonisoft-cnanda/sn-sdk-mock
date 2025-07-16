@@ -111,12 +111,7 @@ class MockGlideRecord {
             return;
         Object.defineProperty(this, prop, {
             get: () => {
-                // if (this.isElementReferenceType(prop)) {
-                //     return this.getElement(prop);
-                // } else {
-                console.log(`get ${prop} = ${this.getValue(prop)}`);
                 return this.getValue(prop);
-                // }
             },
             set: (value) => {
                 this.setValue(prop, value);

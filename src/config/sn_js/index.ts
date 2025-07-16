@@ -1,1 +1,1 @@
-export * from './initSnRhinoEnvironment';
+export * from './initSNRhinoEnvironment';

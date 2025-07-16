@@ -1,3 +1,3 @@
-export * from './RestDataStore';
-export * from './RestMessageFunctionTemplate';
-export * from './RestMessageTemplate';
+export * from './RESTDataStore';
+export * from './RESTMessageFunctionTemplate';
+export * from './RESTMessageTemplate';

@@ -20,7 +20,7 @@ __exportStar(require("./Database.js"), exports);
 __exportStar(require("./DataTableBusinessRule.js"), exports);
 __exportStar(require("./EventQueue.js"), exports);
 __exportStar(require("./InMemoryDataTable.js"), exports);
-__exportStar(require("./PropertyDb.js"), exports);
+__exportStar(require("./PropertyDB.js"), exports);
 __exportStar(require("./PropertyTable.js"), exports);
 __exportStar(require("./sn_ws/index.js"), exports);
 //# sourceMappingURL=index.js.map

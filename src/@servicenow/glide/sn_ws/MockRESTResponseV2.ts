@@ -1,24 +1,24 @@
-import { RestDataStore } from "../../../data/sn_ws/RestDataStore";
-import { MockRestMessageV2 } from "./MockRestMessageV2";
+import { RESTDataStore } from "../../../data/sn_ws/RESTDataStore";
+import { MockRESTMessageV2 } from "./MockRESTMessageV2";
 
-export class MockRestResponseV2 {
-    private _mock_request: MockRestMessageV2;
+export class MockRESTResponseV2 {
+    private _mock_request: MockRESTMessageV2;
     private _headers: Record<string, string> = {};
   
-    constructor(request: MockRestMessageV2) {
-      RestDataStore.getInstance().addMockResponse(this);
+    constructor(request: MockRESTMessageV2) {
+      RESTDataStore.getInstance().addMockResponse(this);
       this._mock_request = request;
     }
   
     public getBody(): any {
-      return RestDataStore.getInstance().mockResponseBody;
+      return RESTDataStore.getInstance().mockResponseBody;
     }
   
     public getStatusCode(): number {
-      return RestDataStore.getInstance().mockResponseCode;
+      return RESTDataStore.getInstance().mockResponseCode;
     }
   
-    public getRequest(): MockRestMessageV2 {
+    public getRequest(): MockRESTMessageV2 {
       return this._mock_request;
     }
   
@@ -31,6 +31,6 @@ export class MockRestResponseV2 {
     }
   
     public haveError(): boolean {
-      return RestDataStore.getInstance().hasError;
+      return RESTDataStore.getInstance().hasError;
     }
   }

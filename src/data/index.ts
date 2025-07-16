@@ -4,6 +4,6 @@ export * from './Database';
 export * from './DataTableBusinessRule';
 export * from './EventQueue';
 export * from './InMemoryDataTable';
-export * from './PropertyDb';
+export * from './PropertyDB';
 export * from './PropertyTable';
 export * from './sn_ws';

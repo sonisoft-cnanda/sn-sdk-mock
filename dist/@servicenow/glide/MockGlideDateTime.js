@@ -5,7 +5,7 @@ exports.newMockGlideDateTime = newMockGlideDateTime;
 const MockGlideDate_1 = require("./MockGlideDate.js");
 const MockGlideTime_1 = require("./MockGlideTime.js");
 const parseISO_1 = require("date-fns/parseISO");
-const DbUtil_1 = require("../../common/DbUtil.js");
+const DBUtil_1 = require("../../common/DBUtil.js");
 class MockGlideDateTime {
     get dateInstance() {
         return this._dateInstance;
@@ -47,7 +47,7 @@ class MockGlideDateTime {
             this._dateInstance = new Date(Date.now());
         }
         else {
-            DbUtil_1.DbUtil.tryParseInt(dt?.toString(), (isParsed, value) => {
+            DBUtil_1.DBUtil.tryParseInt(dt?.toString(), (isParsed, value) => {
                 if (isParsed != undefined && isParsed) {
                     this._dateInstance = new Date();
                     this._dateInstance.setUTCMilliseconds(value);
